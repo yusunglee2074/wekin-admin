@@ -1,0 +1,119 @@
+<template>
+  <ul class="sidebar-menu">
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/"><i class="fa fa-desktop"></i>
+        <span class="page">대시보드</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/home"><i class="fa fa-home"></i>
+        <span class="page">메인 관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/ledger/wekin"><i class="fa fa-pie-chart"></i>
+        <span class="page">위킨 매출통계</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/ledger/host"><i class="fa fa-line-chart"></i>
+        <span class="page">메이커 매출관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/approve"><i class="fa fa-calendar-check-o"></i>
+        <span class="page">승인관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/wekin"><i class="fa fa-rocket"></i>
+        <span class="page">위킨관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/host"><i class="fa fa-user-plus"></i>
+        <span class="page">메이커 관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/user"><i class="fa fa-users"></i>
+        <span class="page">회원관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/doc"><i class="fa fa-commenting"></i>
+        <span class="page">피드&후기관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/qna"><i class="fa fa-question-circle"></i>
+        <span class="page">Q&A관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/notice"><i class="fa fa-bullhorn  "></i>
+        <span class="page">공지사항관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/faq"><i class="fa fa-list-ul"></i>
+        <span class="page">자주묻는질문</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/order"><i class="fa fa-exchange"></i>
+        <span class="page">주문내역관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/ledger/refund"><i class="fa fa-frown-o"></i>
+        <span class="page">환불내역관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/wekin/finish"><i class="fa fa-hand-spock-o"></i>
+        <span class="page">종료위킨관리</span>
+      </router-link>
+    </li>
+  </ul>
+</template>
+<script>
+export default {
+  name: 'SidebarName',
+  methods: {
+    toggleMenu (event) {
+      // remove active from li
+      var active = document.querySelector('li.pageLink.active')
+
+      if (active) {
+        active.classList.remove('active')
+      }
+      // window.$('li.pageLink.active').removeClass('active')
+      // Add it to the item that was clicked
+      event.toElement.parentElement.className = 'pageLink active'
+    }
+  }
+}
+</script>
+<style>
+  /* override default */
+  .sidebar-menu>li>a {
+    padding: 12px 15px 12px 15px;
+  }
+
+  .sidebar-menu li.active>a>.fa-angle-left, .sidebar-menu li.active>a>.pull-right-container>.fa-angle-left {
+    animation-name: rotate;
+    animation-duration: .2s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(-90deg);
+    }
+  }
+</style>
