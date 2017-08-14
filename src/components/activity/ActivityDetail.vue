@@ -290,13 +290,13 @@ export default {
 
         if (this.filterKoreaList.includes(tmp)) {
           this.item.address_detail.area = tmp
-        } else if (tmp === "부산" || tmp === "대구" || tmp === "울산") {
+        } else if (tmp === '부산' || tmp === '대구' || tmp === '울산') {
           this.item.address_detail.area = '경상'
-        } else if (tmp === "인천") {
+        } else if (tmp === '인천') {
           this.item.address_detail.area = '경기'
-        } else if (tmp === "광주") {
+        } else if (tmp === '광주') {
           this.item.address_detail.area = '전라'
-        } else if (tmp === "대전") {
+        } else if (tmp === '대전') {
           this.item.address_detail.area = '충청'
         } else {
           this.item.address_detail.area = '해외'
