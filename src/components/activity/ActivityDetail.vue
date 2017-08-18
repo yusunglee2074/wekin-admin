@@ -150,6 +150,8 @@
                       <div class="col-sm-4">
                         <input type="datetime-local" class="form-control" id="preparation" v-model="item.start_date" >
                       </div>
+                      <span style="color: red;">시각이 오전 12:00인것은 메이커분께서 날짜를 선택하지 않았다는 의미입니다.<br> 신청하기 페이지에서 시각이 비어 보이게됩니다.</span>
+                      <span style="color: red;">오전 12:00인것은 굳이 바꿀 필요가 없습니다.</span>
                     </div>
                     <div class="form-group">
                       <label for="preparation" class="col-sm-2 control-label">신청마감일시</label>
