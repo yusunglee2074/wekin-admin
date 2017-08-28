@@ -12,10 +12,15 @@
                     <div class="col-md-2">메인 베너 이미지 추가</div>
                     <div class="col-md-3">
                         <div class="input-group input-group-sm">
-                            <input type="file" class="form-control" v-on:change="addImage">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-info btn-flat" >이미지 업로드</button>
-                            </span>
+                <div id="test">
+                  <label for="main">메인 배너</label>
+                  <input type="file" id="main" @change="mainbanner($event)">
+                  <label for="detail">디테일 이미지</label>
+                  <input type="file" id="detail" @change="mainbannerdetail($event)">
+                  <label for="detail">디테일 이미지 제목</label>
+                  <input type="text" id="description" v-model="mainbannerdescription">
+                  <button @click="submitImage()">업로드</button>
+                </div>
                         </div>
                     </div>
                 </div>
@@ -24,7 +29,9 @@
                   <div class="col-md-12 col-md-offset-2">
 
                     <div v-for="(item, index) of mainBanner">
+                      <span>{{ index + 1 }} 번째 배너   </span>
                       <img :src="item.value.url" width="300" height="100"/>
+                      <img :src="item.value.detailUrl" width="300" height="300"/>
                       <button class="btn btn-warning" @click="deleteImage(item, index)">delete</button>
                     </div>
 
@@ -48,28 +55,50 @@ export default {
   name: 'Home',
   data () {
     return {
-      sample: '1sample1',
-      photo: null,
       mainBanner: [],
-      mobileBanner: []
+      mainbannerdescription: '',
+      temp: {
+        env_key: null,
+        value: {}
+      }
     }
   },
   mounted () {
     this.fetchData()
   },
   methods: {
-    addImage (event) {
-      let mock = {
-        env_key: null,
-        value: { url: 'http://i.imgur.com/bk2zGaf.jpg' }
-      }
+    mainbanner (event) {
       fireHelper.imageUploadOne(event.target.files[0], url => {
-        mock.value.url = url.substring(0, url.indexOf('token') - 1)
+        this.temp.value.url = url.substring(0, url.indexOf('token') - 1)
+        /*
         this.$http.post('/env/main/banner', mock)
         .then(v => {
           this.mainBanner.push(mock)
         })
+        */
       })
+    },
+    mainbannerdetail (event) {
+      fireHelper.imageUploadOne(event.target.files[0], url => {
+        this.temp.value.detailUrl = url.substring(0, url.indexOf('token') - 1)
+        /*
+        this.$http.post('/env/main/banner', mock)
+        .then(v => {
+          this.mainBanner.push(mock)
+        })
+        */
+      })
+    },
+    submitImage () {
+      this.temp.description = this.mainbannerdescription
+      this.$http.post('/env/main/banner', this.temp)
+        .then(v => {
+          this.mainBanner.push(this.temp)
+          window.location.reload()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     deleteImage (item, index) {
       if (this.mainBanner.length === 1) {
@@ -82,6 +111,7 @@ export default {
     fetchData () {
       this.$http.get('/env/main/banner')
       .then(r => {
+        console.log(r)
         this.mainBanner = r.data
       })
       .catch(e => { console.log(e) })
