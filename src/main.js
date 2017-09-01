@@ -30,9 +30,9 @@ firebase.initializeApp(config)
 import axios from 'axios'
 
 Vue.prototype.$http = axios.create({
-  // baseURL: 'http://localhost:8888/v1/'
+  baseURL: 'http://localhost:8888/v1/'
   // baseURL: 'https://wekin-api-dev-dot-wekinproject.appspot.com/v1/'
-  baseURL: 'https://wekin-api-prod-dot-wekinproject.appspot.com/v1/'
+  // baseURL: 'https://wekin-api-prod-dot-wekinproject.appspot.com/v1/'
 })
 // axios end
 

@@ -17,8 +17,10 @@
                   <input type="file" id="main" @change="mainbanner($event)">
                   <label for="detail">디테일 이미지</label>
                   <input type="file" id="detail" @change="mainbannerdetail($event)">
-                  <label for="detail">디테일 이미지 제목</label>
-                  <input type="text" id="description" v-model="mainbannerdescription">
+                  <label for="name">디테일 이미지 제목</label>
+                  <input type="text" id="name" v-model="mainbannerdescription">
+                  <label for="order">메인배너 순서값</label>
+                  <input type="number" id="order" v-model="mainbannerOrder">
                   <button @click="submitImage()">업로드</button>
                 </div>
                         </div>
@@ -29,7 +31,8 @@
                   <div class="col-md-12 col-md-offset-2">
 
                     <div v-for="(item, index) of mainBanner">
-                      <span>{{ index + 1 }} 번째 배너   </span>
+                      <span>순서값 : {{ item.value.order }}</span>
+                      <span>제목 : {{ item.description }}</span>
                       <img :src="item.value.url" width="300" height="100"/>
                       <img :src="item.value.detailUrl" width="300" height="300"/>
                       <button class="btn btn-warning" @click="deleteImage(item, index)">delete</button>
@@ -57,6 +60,7 @@ export default {
     return {
       mainBanner: [],
       mainbannerdescription: '',
+      mainbannerOrder: '',
       temp: {
         env_key: null,
         value: {}
@@ -91,6 +95,7 @@ export default {
     },
     submitImage () {
       this.temp.description = this.mainbannerdescription
+      this.temp.value.order = this.mainbannerOrder
       this.$http.post('/env/main/banner', this.temp)
         .then(v => {
           this.mainBanner.push(this.temp)
@@ -111,7 +116,10 @@ export default {
     fetchData () {
       this.$http.get('/env/main/banner')
       .then(r => {
-        console.log(r)
+        console.log(r.data)
+        r.data.sort(function (a, b) {
+          return a.value.order - b.value.order
+        })
         this.mainBanner = r.data
       })
       .catch(e => { console.log(e) })
@@ -122,3 +130,12 @@ export default {
   }
 }
 </script>
+
+<style>
+
+#test input {
+  height: 20px;
+  margin-bottom: 8px;
+}
+
+</style>

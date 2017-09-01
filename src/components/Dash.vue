@@ -1,5 +1,5 @@
 <template>
-  <div :class="['wrapper', classes]" v-if="currentUser">
+  <div :class="['wrapper', 'classes']" v-if="currentUser">
     <header class="main-header">
       <a href="/" class="logo">
       <!--<img src="/static/img/logo-main.png" alt="Logo" class="img-responsive">-->
@@ -59,7 +59,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-      <strong>Copyright &copy; {{year}} <a href="javascript:;">CoPilot</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; <a href="javascript:;">CoPilot</a>.</strong> All rights reserved.
     </footer>
   </div>
   <!-- ./wrapper -->
