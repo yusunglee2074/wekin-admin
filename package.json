@@ -33,6 +33,7 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.1",
     "vue-tables-2": "^0.6.26",
+    "vuetable": "^1.5.12",
     "vuex": "^2.0.0",
     "vuex-router-sync": "^4.1.2"
   },
