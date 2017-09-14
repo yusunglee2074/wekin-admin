@@ -40,6 +40,29 @@
         <span class="page">회원관리</span>
       </router-link>
     </li>
+
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-folder-o"></i>
+        <span>포인트</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left fa-fw pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li>
+          <router-link to="/companypoint"><i class="fa fa-usd"></i>
+            <span class="page">기업 포인트 관리</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/userpoint"><i class="fa fa-usd"></i>
+            <span class="page">일반 포인트 관리</span>
+          </router-link>
+        </li>
+      </ul>
+    </li>
+    
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/doc"><i class="fa fa-commenting"></i>
         <span class="page">피드&후기관리</span>
