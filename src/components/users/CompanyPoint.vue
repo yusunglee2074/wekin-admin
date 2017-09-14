@@ -189,8 +189,9 @@ export default {
         }
         this.$http.post('/point/create', body)
           .then(response => {
-            console.log(response)
+            window.alert('완료')
           })
+          .catch(error => window.alert(error + '에러발생 유성이에게 알려주세요'))
       }
     },
     showDetail (item) {
