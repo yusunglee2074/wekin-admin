@@ -30,7 +30,7 @@
       <td>{{ item.email_company || "정보없음" }}</td>
       <td>{{ item.point.point_special }}</td>
       <td>{{ item.point.point }}</td>
-      <td> 100 %</td>
+      <td>{{ item.point.percentage }} %</td>
       <td><button @click="showDetail(item)">상세</button></td>
     </tr>
   </table>
@@ -77,7 +77,6 @@ export default {
       checkedList: [],
       addPoint: {
         due_date: null,
-        percentage: null,
         point: null
       },
       detailPopup: false,
@@ -89,6 +88,17 @@ export default {
       this.$http.get('/user')
         .then(res => {
           this.items = res.data
+          this.items.sort((a, b) => {
+            let nameA = a.email_company === null ? '' : a.email_company.toUpperCase()  // ignore upper and lowercase
+            let nameB = b.email_company === null ? '' : b.email_company.toUpperCase()  // ignore upper and lowercase
+            if (nameA < nameB) {
+              return 1
+            }
+            if (nameA > nameB) {
+              return -1
+            }
+            return 0
+          })
         })
         .catch(err => console.log(err))
     },

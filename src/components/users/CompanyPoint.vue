@@ -7,7 +7,6 @@
   <div>
     <input type="number" placeholder="포인트양" v-model="addPoint.point">
     유효기간 <input type="date" v-model="addPoint.due_date">
-    한도율 <input type="number" placeholder="0~100" v-model="addPoint.percentage">
     <button @click="earnPoint()">선택회원 포인트 적립</button>
   </div>
   <span>선택회원 리스트 : {{ checkedList }}</span>
@@ -31,7 +30,7 @@
       <td>{{ item.email_company || "정보없음" }}</td>
       <td>{{ item.point.point_special }}</td>
       <td>{{ item.point.point }}</td>
-      <td> 100 %</td>
+      <td>{{ item.point.percentage }}%</td>
       <td><button @click="showDetail(item)">상세</button></td>
     </tr>
   </table>
@@ -78,7 +77,6 @@ export default {
       checkedList: [],
       addPoint: {
         due_date: null,
-        percentage: null,
         point: null
       },
       detailPopup: false,
@@ -90,6 +88,17 @@ export default {
       this.$http.get('/user')
         .then(res => {
           this.items = res.data
+          this.items.sort((a, b) => {
+            let nameA = a.email_company === null ? '' : a.email_company.toUpperCase()  // ignore upper and lowercase
+            let nameB = b.email_company === null ? '' : b.email_company.toUpperCase()  // ignore upper and lowercase
+            if (nameA < nameB) {
+              return 1
+            }
+            if (nameA > nameB) {
+              return -1
+            }
+            return 0
+          })
         })
         .catch(err => console.log(err))
     },
@@ -183,7 +192,6 @@ export default {
         let body = {
           user_key: this.checkedList[i],
           value: this.addPoint.point,
-          percentage: this.addPoint.percentage,
           due_date: moment(this.addPoint.due_date).toDate(),
           type: 1
         }
