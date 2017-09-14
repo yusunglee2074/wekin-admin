@@ -14,12 +14,12 @@
   <table>
     <tr>
       <th>체크 <input type="checkbox" @click="checkAll()"></th>
-      <th @click="orderingData('id')" >ID</th>
+      <th @click="orderingData('id')" style="cursor:n-resize">ID</th>
       <th>이름</th>
       <th>이메일</th>
       <th @click="orderingData('company')" style="cursor:n-resize">회사메일</th>
-      <th>기업포인트</th>
-      <th>일반포인트</th>
+      <th @click="orderingData('company_point')" style="cursor:n-resize">기업포인트</th>
+      <th @click="orderingData('point')" style="cursor:n-resize">일반포인트</th>
       <th>사용한도율</th>
       <th>디테일</th>
     </tr>
@@ -70,7 +70,10 @@ export default {
       items: [],
       searchWord: '',
       toggleSwitch: {
-        orderingById: false
+        orderingById: false,
+        orderingByCompany: false,
+        orderingByCompanyPoint: false,
+        orderingByPoint: false
       },
       checkedList: [],
       addPoint: {
@@ -131,6 +134,32 @@ export default {
                 return -1
               }
               return 0
+            })
+          }
+          break
+        case 'company_point':
+          if (this.toggleSwitch.orderingByCompanyPoint === true) {
+            this.toggleSwitch.orderingByCompanyPoint = false
+            this.items.sort((a, b) => {
+              return a.point.point_special - b.point.point_special
+            })
+          } else {
+            this.toggleSwitch.orderingByCompanyPoint = true
+            this.items.sort((a, b) => {
+              return b.point.point_special - a.point.point_special
+            })
+          }
+          break
+        case 'point':
+          if (this.toggleSwitch.orderingByPoint === true) {
+            this.toggleSwitch.orderingByPoint = false
+            this.items.sort((a, b) => {
+              return a.point.point - b.point.point
+            })
+          } else {
+            this.toggleSwitch.orderingByPoint = true
+            this.items.sort((a, b) => {
+              return b.point.point - a.point.point
             })
           }
       }
