@@ -17,7 +17,7 @@
       <th @click="orderingData('id')" >ID</th>
       <th>이름</th>
       <th>이메일</th>
-      <th>회사메일</th>
+      <th @click="orderingData('company')" style="cursor:n-resize">회사메일</th>
       <th>기업포인트</th>
       <th>일반포인트</th>
       <th>사용한도율</th>
@@ -102,6 +102,35 @@ export default {
             this.toggleSwitch.orderingById = false
             this.items.sort((a, b) => {
               return b.user_key - a.user_key
+            })
+          }
+          break
+        case 'company':
+          if (this.toggleSwitch.orderingByCompany === false) {
+            this.toggleSwitch.orderingByCompany = true
+            this.items.sort((a, b) => {
+              let nameA = a.email_company === null ? '' : a.email_company.toUpperCase()  // ignore upper and lowercase
+              let nameB = b.email_company === null ? '' : b.email_company.toUpperCase()  // ignore upper and lowercase
+              if (nameA < nameB) {
+                return 1
+              }
+              if (nameA > nameB) {
+                return -1
+              }
+              return 0
+            })
+          } else {
+            this.toggleSwitch.orderingByCompany = false
+            this.items.sort((a, b) => {
+              let nameA = a.email_company === null ? '' : a.email_company.toUpperCase()  // ignore upper and lowercase
+              let nameB = b.email_company === null ? '' : b.email_company.toUpperCase()  // ignore upper and lowercase
+              if (nameA < nameB) {
+                return 1
+              }
+              if (nameA > nameB) {
+                return -1
+              }
+              return 0
             })
           }
       }
