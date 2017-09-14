@@ -7,6 +7,8 @@ import DashboardView from './components/views/Dashboard.vue'
 
 import UserList from './components/users/UserList.vue'
 import UserDetail from './components/users/UserDetail.vue'
+import CompanyPoint from './components/users/CompanyPoint.vue'
+import NormalPoint from './components/users/NormalPoint.vue'
 
 import NoticeAdd from './components/board/NoticeAdd.vue'
 import NoticeList from './components/board/NoticeList.vue'
@@ -67,6 +69,16 @@ const routes = [
         component: UserDetail,
         name: 'UserDetail',
         meta: {description: '사용자 정보'}
+      }, {
+        path: 'companypoint',
+        component: CompanyPoint,
+        name: 'CompanyPoint',
+        meta: {description: '기업 포인트 관리'}
+      }, {
+        path: 'normalpoint',
+        component: NormalPoint,
+        name: 'NormalPoint',
+        meta: {description: '일반 포인트 관리'}
       }, {
         path: 'home',
         component: Home,

@@ -56,7 +56,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/userpoint"><i class="fa fa-usd"></i>
+          <router-link to="/normalpoint"><i class="fa fa-usd"></i>
             <span class="page">일반 포인트 관리</span>
           </router-link>
         </li>
