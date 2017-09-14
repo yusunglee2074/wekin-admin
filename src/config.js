@@ -49,4 +49,4 @@ export const orderStatus = {
 
 export const filterKoreaList = ['서울', '경기', '강원', '충청', '경상', '전라', '제주']
 
-export const adminList = ['b3hL1vS6uSTaZEPK4YfTeS3ySOg2', '7rJfyA9N1ePygZXpZCmdUSTSexI2', 'UGxNNJ5g1nSia24aC82qB7Eqfkt1', 'bGsdG3iWEAWetGlRBqq19L8ztij1']
+export const adminList = ['qMBDHB2hlidSxEHHFYYfeAv9FHU2', 'b3hL1vS6uSTaZEPK4YfTeS3ySOg2', '7rJfyA9N1ePygZXpZCmdUSTSexI2', 'UGxNNJ5g1nSia24aC82qB7Eqfkt1', 'bGsdG3iWEAWetGlRBqq19L8ztij1']
