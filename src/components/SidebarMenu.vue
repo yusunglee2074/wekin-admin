@@ -63,6 +63,15 @@
       </ul>
     </li>
     
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-folder-o"></i>
+        <span>Documentary 관리</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left fa-fw pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/doc"><i class="fa fa-commenting"></i>
         <span class="page">피드&후기관리</span>
@@ -84,6 +93,13 @@
       </router-link>
     </li>
     <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/news"><i class="fa fa-list-ul"></i>
+        <span class="page">뉴스</span>
+      </router-link>
+    </li>
+      </ul>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/order"><i class="fa fa-exchange"></i>
         <span class="page">주문내역관리</span>
       </router-link>
@@ -96,6 +112,11 @@
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/wekin/finish"><i class="fa fa-hand-spock-o"></i>
         <span class="page">종료위킨관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/naver"><i class="fa fa-commenting"></i>
+        <span class="page">상품관리(네이버쇼핑용)</span>
       </router-link>
     </li>
   </ul>
