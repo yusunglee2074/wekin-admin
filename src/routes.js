@@ -4,6 +4,7 @@ import NotFoundView from './components/404.vue'
 
 // Import Views - Dash
 import DashboardView from './components/views/Dashboard.vue'
+import NaverShoping from './components/NaverShoping.vue'
 
 import UserList from './components/users/UserList.vue'
 import UserDetail from './components/users/UserDetail.vue'
@@ -19,6 +20,7 @@ import FaqEdit from './components/board/FaqEdit.vue'
 
 import DocList from './components/doc/DocList.vue'
 import QnaList from './components/doc/QnaList.vue'
+import News from './components/doc/News.vue'
 
 import WekinList from './components/wekin/WekinList.vue'
 import WekinDetail from './components/wekin/WekinDetail.vue'
@@ -160,6 +162,11 @@ const routes = [
         name: 'QnaList',
         meta: {description: '질문'}
       }, {
+        path: 'news',
+        component: News,
+        name: 'News',
+        meta: {description: '뉴스관리'}
+      }, {
         path: 'approve',
         component: Approve,
         name: 'Approve',
@@ -194,6 +201,11 @@ const routes = [
         component: HostLedger,
         name: 'HostLedger',
         meta: {description: 'HostLedger'}
+      }, {
+        path: 'naver',
+        component: NaverShoping,
+        name: 'ForNaverShoping',
+        meta: {description: '네이버 상품'}
       }, {
         path: 'ledger/refund',
         component: RefundLedger,
