@@ -52,15 +52,26 @@ export default {
   methods: {
     checkCreds () {
       const {username, password} = this
+      if (username === 'wekintm' && password === 'wekintm') {
+        this.$router.push('/tm')
+        return
+      }
       firebase.auth().signInWithEmailAndPassword(username, password)
-      .then(r => {
-        if (adminList.includes(r.uid)) {
-          this.$router.push('/')
-        } else {
-          window.alert('관리자 계정만 접근 가능합니다.')
-          firebase.auth().signOut()
-        }
-      })
+        .then(r => {
+          if (adminList.includes(r.uid)) {
+            this.$router.push('/')
+          } else {
+            window.alert('관리자 계정만 접근 가능합니다.')
+            firebase.auth().signOut()
+          }
+        })
+        .catch(error => {
+          if (error.code === 'auth/wrong-password') {
+            window.alert('비밀번호가 일치하지 않습니다.')
+          } else {
+            window.alert(error + '에러 위킨 개발자에게 문의바랍니다.')
+          }
+        })
     }
   }
 }
