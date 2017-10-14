@@ -15,12 +15,19 @@
                 <div id="test">
                   <label for="main">메인 배너</label>
                   <input type="file" id="main" @change="mainbanner($event)">
+                  <br>
                   <label for="detail">디테일 이미지</label>
                   <input type="file" id="detail" @change="mainbannerdetail($event)">
+                  <br>
                   <label for="name">디테일 이미지 제목</label>
                   <input type="text" id="name" v-model="mainbannerdescription">
+                  <br>
                   <label for="order">메인배너 순서값</label>
                   <input type="number" id="order" v-model="mainbannerOrder">
+                  <br>
+                  <label for="link">외부 링크</label>
+                  <input type="text" id="link" v-model="externalLink">
+                  <br>
                   <button @click="submitImage()">업로드</button>
                 </div>
                         </div>
@@ -61,6 +68,7 @@ export default {
       mainBanner: [],
       mainbannerdescription: '',
       mainbannerOrder: '',
+      externalLink: null,
       temp: {
         env_key: null,
         value: {}
@@ -96,6 +104,7 @@ export default {
     submitImage () {
       this.temp.description = this.mainbannerdescription
       this.temp.value.order = this.mainbannerOrder
+      this.temp.value.externalLink = this.externalLink
       this.$http.post('/env/main/banner', this.temp)
         .then(v => {
           this.mainBanner.push(this.temp)
