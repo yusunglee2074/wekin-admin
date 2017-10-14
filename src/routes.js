@@ -57,8 +57,8 @@ const routes = [
       {
         path: 'dashboard',
         alias: '',
-        component: HostList,
-        name: 'HostList',
+        component: HostListTm,
+        name: 'HostListTm',
         meta: {description: 'Overview of environment'}
       }, {
         path: 'hosttm',
@@ -68,7 +68,7 @@ const routes = [
       }, {
         path: 'hosttm/:key',
         component: HostDetailTm,
-        name: 'HostDetail',
+        name: 'HostDetailTm',
         meta: {description: 'Approve'}
       }
     ]

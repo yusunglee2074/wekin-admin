@@ -36,7 +36,7 @@
                         <td>{{item.tel}}</td>
                         <td>{{item.address}}</td>
                         <td><Category :text="status[item.status].status" :color="status[item.status].color"></Category></td>
-                        <td><router-link :to="'/tm/hosttm/' + item.host_key"><button class="btn btn-primary">보기</button></router-link></td>
+                        <td><router-link :to="{ name: 'HostDetailTm', params: { key: item.host_key }}"><button>보기</button></router-link></td>
                       </tr>
                     </tbody>
                   </table>
