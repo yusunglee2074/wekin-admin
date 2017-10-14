@@ -26,7 +26,7 @@
             <li class="dropdown user user-menu" @click="signOut">
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img v-bind:src="currentUser.photoURL" class="user-image" alt="User Image">
+                <img v-bind:src="currentUser.photoURL" class="user-image" alt="로그아웃">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">{{ currentUser.displayName }}</span>
               </a>
