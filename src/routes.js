@@ -120,7 +120,7 @@ const routes = [
         path: 'wekin/order/:key',
         component: WekinOrder,
         name: 'WekinOrder',
-        meta: {description: '위킨 관리'}
+        meta: {description: '위킨 결제 고나리'}
       }, {
         path: 'activity',
         component: ActivityList,
