@@ -101,22 +101,12 @@
     </li>
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/order"><i class="fa fa-exchange"></i>
-        <span class="page">주문내역관리</span>
-      </router-link>
-    </li>
-    <li class="active pageLink" v-on:click="toggleMenu">
-      <router-link to="/ledger/refund"><i class="fa fa-frown-o"></i>
-        <span class="page">환불내역관리</span>
-      </router-link>
-    </li>
-    <li class="active pageLink" v-on:click="toggleMenu">
-      <router-link to="/wekin/finish"><i class="fa fa-hand-spock-o"></i>
-        <span class="page">종료위킨관리</span>
+        <span class="page">주문 관리</span>
       </router-link>
     </li>
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/naver"><i class="fa fa-commenting"></i>
-        <span class="page">상품관리(네이버쇼핑용)</span>
+        <span style="text-decoration: line-through;" class="page">상품관리(네이버쇼핑용 (개발중))</span>
       </router-link>
     </li>
   </ul>
