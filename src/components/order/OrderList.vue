@@ -5,40 +5,30 @@
       <div class="col-md-8">
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">위킨 리스트</h3>
+            <h3 class="box-title">주문 필터</h3>
           </div>
-          <!-- /.box-header -->
           <div class="box-body no-padding table-responsive">
             <table class="table table-striped">
               <tbody>
-                <!--<tr>
-                  <td>검색</td>
-                  <td colspan="6"><input></td>
-                </tr>-->
                 <tr>
                   <td>주문상태</td>
-                  <td><input v-model="query.status" type="radio" value=""><label> 전체</label></td>
-                  <td><input v-model="query.status" type="radio" value="order"><label> 신청</label></td>
-                  <td><input v-model="query.status" type="radio" value="ready"><label> 입금</label></td>
-                  <td><input v-model="query.status" type="radio" value="paid"><label> 완료</label></td>
-                  <td><input v-model="query.status" type="radio" value="cancelled"><label> 취소</label></td>
-                  <td><input v-model="query.status" type="radio" value="failed"><label> 결제실패</label></td>
+                  <td><input id="status1" v-model="query.status" type="radio" value=""><label for="status1"> 전체</label></td>
+                  <td><input id="status2" v-model="query.status" type="radio" value="ready"><label for="status2"> 입금대기</label></td>
+                  <td><input id="status3" v-model="query.status" type="radio" value="paid"><label for="status3"> 입금완료</label></td>
+                  <td><input id="status4" v-model="query.status" type="radio" value="cancelled"><label for="status4"> 취소</label></td>
+                  <td><input id="status5" v-model="query.status" type="radio" value="failed"><label for="status5"> 결제실패</label></td>
+                  <td><input id="status6" v-model="query.status" type="radio" value="reqRef"><label for="status6"> 환불신청</label></td>
                 </tr>
                 <tr>
                   <td>결제수단</td>
-                  <td><input v-model="query.order_pay_method" type="radio" value=""><label> 전체</label></td>
-                  <td><input v-model="query.order_pay_method" type="radio" value="card"><label> 신용카드</label></td>
-                  <td><input v-model="query.order_pay_method" type="radio" value="vbank"><label> 가상계좌</label></td>
-                  <td><input v-model="query.order_pay_method" type="radio" value="trans"><label> 계좌이체</label></td>
-                  <td colspan="2"><input v-model="query.order_pay_method" type="radio" value="phone"><label> 휴대폰</label></td>
+                  <td><input id="method1" v-model="query.order_pay_method" type="radio" value=""><label for="method1"> 전체</label></td>
+                  <td><input id="method2" v-model="query.order_pay_method" type="radio" value="card"><label for="method2"> 신용카드</label></td>
+                  <td><input id="method3" v-model="query.order_pay_method" type="radio" value="vbank"><label for="method3"> 가상계좌</label></td>
+                  <td><input id="method4" v-model="query.order_pay_method" type="radio" value="trans"><label for="method4"> 계좌이체</label></td>
                 </tr>
                 <tr>
                   <td>주문일자</td>
-                  <td colspan="6"><input type="date" max="2999-12-31" v-model="query.start"> ~ <input type="date" max="2999-12-31" v-model="query.end"></td>
-                </tr>
-                <tr>
-                  <td>위킨찾기</td>
-                  <td colspan="4"><input type="number" v-model="query.wekin_key"></td>
+                  <td colspan="6"><input type="date" max="2020-12-31" v-model="query.start"> ~ <input type="date" max="2020-12-31" v-model="query.end"></td>
                 </tr>
               </tbody>
             </table>
@@ -50,9 +40,6 @@
 
       <div class="col-md-12">
         <div class="box">
-          <div class="box-header">
-          </div>
-          <!-- /.box-header -->
           <div class="box-body">
             <div class="pull-right">
               <button @click="excel" class="btn">excel 출력</button>
@@ -64,12 +51,12 @@
                   <table role="grid" id="data_table" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr role="row">
-                        <th style="width: 10px;">주문번호</th>
-                        <th style="width: 50px;">위킨ID</th>
-                        <th style="width: 20px;">위킨제목</th>
+                        <th style="width: 60px;">주문번호</th>
+                        <th style="width: 80px;">회원명</th>
+                        <th style="width: 80px;">주문일</th>
+                        <th style="width: 60px;">위킨제목</th>
                         <th style="width: 80px;">주문상태</th>
                         <th style="width: 80px;">결제수단</th>
-                        <th style="width: 80px;">회원ID</th>
                         <th style="width: 80px;">회원전화</th>
                         <th style="width: 80px;">신청금액</th>
                         <th style="width: 80px;">입금금액</th>
@@ -79,13 +66,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="even" role="row" v-for="(item, key, index) in items">
+                      <tr class="even" role="row" v-for="(item, key, index) in items" v-show="isInDate(item.order_at) && (query.status === '' ? true : query.status == item.status) && (query.order_pay_method === '' ? true : query.order_pay_method === item.order_pay_method)">
                         <td>{{item.order_key}}</td>
-                        <td>{{item.wekin_key}} </td>
+                        <td>{{item.User.name}}</td>
+                        <td>{{item.order_at | formatTime }}</td>
                         <td>{{item.wekin_name}} </td>
                         <td>{{item.status }}</td>
                         <td>{{item.order_pay_method}} </td>
-                        <td>{{item.user_key}}</td>
                         <td>{{item.user_phone}}</td>
                         <td>{{item.order_total_price}}</td>
                         <td>{{item.order_pay_price}}</td>
@@ -95,7 +82,8 @@
                       </tr>
                     </tbody>
                   </table>
-                  <Pageable :page="pageing"></Pageable>
+                  
+                  <!-- TODO:페이지 처리 하는 컴포넌트 나중에 다시 확인<Pageable :page="pageing"></Pageable>-->
                 </div>
               </div>
             </div>
@@ -108,30 +96,29 @@
 </template>
 
 <script>
-import Category from '../Category'
 import { hostStatus } from '../../config'
-import Pageable from '../Pageable'
+// import Pageable from '../Pageable'
 import moment from 'moment'
 
 export default {
-  components: { Category, Pageable },
+  components: {
+  },
   name: 'OrderList',
   data () {
     return {
       items: [],
-      pageing: [],
+      // pageing: [],
       status: hostStatus,
       query: {
         status: '',
         order_pay_method: '',
-        start: moment(this.now).format('YYYY-MM-DD'),
+        start: moment(this.now).set('days', -10).format('YYYY-MM-DD'),
         end: moment(this.now).format('YYYY-MM-DD'),
         wekin_key: ''
-      },
-      month: moment(this.now).format('MM'),
-      year: moment(this.now).format('YYYY')
+      }
     }
   },
+  /*
   watch: {
     '$route.query': 'fetchData',
     'query.status': 'buildQuery',
@@ -140,7 +127,15 @@ export default {
     'query.order_pay_method': 'buildQuery',
     'query.wekin_key': 'buildQuery'
   },
+  */
   methods: {
+    isInDate (day) {
+      let orderDay = moment(day)
+      if (orderDay.isSameOrBefore(this.query.end, 'day') && orderDay.isSameOrAfter(this.query.start, 'day')) {
+        return true
+      }
+      return false
+    },
     excel () {
       window.jQuery('#data_table').table2excel({
         exclude: '.noExl',
@@ -148,6 +143,7 @@ export default {
         filename: 'data.xls'
       })
     },
+    /*
     byMonth () {
       this.query.start = moment(this.month, 'MM').format('YYYY-MM-DD')
       this.query.end = moment(this.month, 'MM').add('months', 1).date(0).format('YYYY-MM-DD')
@@ -156,14 +152,18 @@ export default {
       this.query.start = moment(this.year, 'YYYY').format('YYYY-MM-DD')
       this.query.end = moment(this.year, 'YYYY').add('years', 1).date(0).format('YYYY-MM-DD')
     },
+    */
     fetchData () {
-      this.$http.get(`/order/pageing/?${this.serialize(this.$route.query)}`)
-      .then(res => {
-        this.pageing = res.data
-        this.items = res.data.content
-      })
-      .catch(err => console.log(err))
-    },
+      // this.$http.get(`/order/pageing/?${this.serialize(this.$route.query)}`)
+      this.$http.get(`/order/pageing/`)
+        .then(res => {
+          this.items = res.data.data
+        })
+        .catch(err => {
+          window.alert('유성이에게 해당 화면을 보여주세요.' + err + moment().format())
+        })
+    }
+    /*
     serialize (obj) {
       let str = []
       for (let p in obj) {
@@ -185,9 +185,14 @@ export default {
       }
       })
     }
+    */
+  },
+  filters: {
+    formatTime: function (value) {
+      return moment(value).format('L')
+    }
   },
   mounted () {
-    this.buildQuery()
     this.fetchData()
   }
 }
