@@ -97,7 +97,7 @@
                     <tbody>
                     <tr>
                       <td>{{item.wekin_key}}</td>
-                      <td>{{item.Wekin.start_date | date('YYYY-MM-DD HH:mm:ss')}}</td>
+                      <td>{{item.WekinNew.start_date | date('YYYY-MM-DD HH:mm:ss')}}</td>
                       <td>{{item.wekin_name}}</td>
                       <td>{{item.wekin_host_name}}</td>
                       <td>{{item.wekin_amount}}</td>
@@ -263,7 +263,6 @@ export default {
     fetchData () {
       this.$http.get(`/order/${this.path}`)
       .then(res => {
-        console.log(res.data)
         this.item = res.data
       })
       .catch(err => console.log(err))
