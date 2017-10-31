@@ -8,7 +8,8 @@ export const wekinStatus = {
   '2': { status: '반려', style: 'bg-yellow', alt: '반려', color: 'F39200' },
   '3': { status: '활동', style: 'bg-green', alt: '활동중', color: '009D4D' },
   '4': { status: '삭제', style: 'bg-red', alt: '삭제 요청', color: 'DB402C' },
-  '5': { status: '종료', style: 'bg-red', alt: '기간 종료', color: 'DB402C' }
+  '5': { status: '종료', style: 'bg-red', alt: '기간 종료', color: 'DB402C' },
+  '9': { status: '수정요청', style: 'bg-white', alt: '수정 요청', color: 'DB402C' }
 }
 
 export const docStatus = {
