@@ -36,7 +36,21 @@
                 <div class="form-group">
                   <label for="category" class="col-sm-2 control-label">카테고리</label>
                   <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputName" v-model="item.category">
+                    <select v-model="item.category" class="ui dropdown" style="width: 300px;">
+                      <option value="" disabled>카테고리</option>
+                      <option value="투어/여행">투어/여행</option>
+                      <option value="익스트림 (레저)">익스트림 (레저)</option>
+                      <option value="스포츠 (구기종목)">스포츠 (구기종목)</option>
+                      <option value="음악">음악</option>
+                      <option value="댄스">댄스</option>
+                      <option value="뷰티">뷰티</option>
+                      <option value="요리">요리</option>
+                      <option value="아트">아트</option>
+                      <option value="힐링">힐링</option>
+                      <option value="아웃도어">아웃도어</option>
+                      <option value="요가/피트니스">요가/피트니스</option>
+                      <option value="소품제작">소품제작</option>
+                    </select>
                   </div>
                 </div>
 
@@ -47,8 +61,20 @@
                   </div>
                 </div>
 
+                <div class="form-group" v-for="(data, i, y) in item.detail_question" :key="y">
+                  <label for="inputName" class="col-sm-2 control-label">{{ tmpQuestions[y] }}</label>
+                  <div class="col-sm-8">
+                    <textarea id="" name="" cols="60" style="float:left;" rows="6" v-model="data.text"></textarea>
+                    <div style="margin: 16px 8px;width:100px;height:100px;z-index:222; float:left;" v-if="image" v-for="(image, index) in data.images" :key="index">
+                      <img style="width:100%;height:100%" :src="image">
+                    </div>
+                  </div>
+                </div>
+
+                
 
                 <div class="form-group">
+                  <p style="color:red;">* 위의 5가지 질문과 사진을 그냥 합쳐서 상세 소개에 때려박습니다. 실제로 프로덕트에서는 아래 상세 설명이 보여집니다.</p>
                   <label for="intro_detail" class="col-sm-2 control-label">상세 소개</label>
 
                   <div class="col-sm-8">
@@ -85,7 +111,7 @@
                     <div class="input-group input-group-sm">
                       <input type="text" class="form-control" v-model="item.address_detail.meet_area">
                       <span class="input-group-btn">
-                          <button type="button" class="btn btn-info btn-flat" @click="googleMapMeet">위치 설정</button>
+                        <button type="button" class="btn btn-info btn-flat" @click="googleMapMeet">위치 설정</button>
                       </span>
                     </div>
                   </div>
@@ -96,7 +122,7 @@
                     <div class="input-group input-group-sm">
                       <input type="text" class="form-control" v-model="item.address">
                       <span class="input-group-btn">
-                          <button type="button" class="btn btn-info btn-flat" @click="googleMap">위치 설정</button>
+                        <button type="button" class="btn btn-info btn-flat" @click="googleMap">위치 설정</button>
                       </span>
                     </div>
                   </div>
@@ -138,64 +164,151 @@
                 <div class="form-group">
                   <label for="price" class="col-sm-2 control-label">가격</label>
                   <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputName" placeholder="위킨명" v-model="item.price">
+                    <input type="text" class="form-control" id="inputName" placeholder="위킨명" v-model="item.base_price">
                   </div>
                 </div>
 
                 <hr >
-                <div class="row" v-for="(item, index) in child" :key="item.wekin_key">
-                  <div class="col-sm-8 col-sm-offset-2 wekin-object">
-                    <div class="form-group">
-                      <label for="preparation" class="col-sm-2 control-label">날짜선택</label>
-                      <div class="col-sm-4">
-                        <input type="datetime-local" class="form-control" id="preparation" v-model="item.start_date" >
-                      </div>
-                      <span style="color: red;">시각이 오전 12:00인것은 메이커분께서 날짜를 선택하지 않았다는 의미입니다.<br> 신청하기 페이지에서 시각이 비어 보이게됩니다.</span>
-                      <span style="color: red;">오전 12:00인것은 굳이 바꿀 필요가 없습니다.</span>
-                    </div>
-                    <div class="form-group">
-                      <label for="preparation" class="col-sm-2 control-label">신청마감일시</label>
-                      <div class="col-sm-4">
-                        <input type="datetime-local" class="form-control" id="preparation" v-model="item.due_date" >
-                      </div>
-                      <label class="col-sm-1 control-label">수수료</label>
-                      <div class="col-sm-2">
-                        <div class="input-group input-group-sm">
-                          <input type="number" max="100" class="form-control" v-model="child[index].commission" >
-                          <span class="input-group-btn">
-                              <button type="button" class="btn btn-info btn-flat" @click="adjustCommission(index)" v-if="child[index].commission != modelChild[item.wekin_key]">설정</button>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="preparation" class="col-sm-2 control-label">최소 ~ 최대인원</label>
-                      <div class="col-sm-2">
-                        <input type="preparation" class="form-control" id="preparation" placeholder="최소" v-model="item.min_user" >
-                      </div>
-                      <div class="col-sm-2">
-                        <input type="preparation" class="form-control" id="preparation" placeholder="최소" v-model="item.max_user" >
-                      </div>
-                      <div class="col-sm-2 col-sm-offset-1">
-                        <button class="btn btn-primary" @click="saveWekin(item, index)">저장</button>
-                        <button class="btn btn-danger" @click="deleteChildWekin(item, index)">삭제</button>
-                      </div>
-                    </div>
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">등록 시작 날짜</label>
+                  <div class="col-sm-3">
+                  <datepicker 
+                    v-model="item.start_date" 
+                    id="datepickerId" 
+                    wapper-class="form-control" 
+                    language="ko" 
+                    format="MMM dd(D), yyyy"
+                    placeholder="날짜선택">
+                  </datepicker>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">등록 만료 날짜</label>
+                  <div class="col-sm-3">
+                  <datepicker 
+                    v-model="item.end_date" 
+                    id="datepickerId" 
+                    wapper-class="ui input styled primary left icon" 
+                    language="ko" 
+                    format="MMM dd(D), yyyy"
+                    placeholder="날짜선택">
+                  </datepicker>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">몇 일전에 접수 마감 시킬까요?</label>
+                  <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inputName" placeholder="숫자만 입력"  v-model="item.due_date"> 
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-sm-8 col-sm-offset-2">
-                    <button class="btn btn-primary" @click="addWekin">add</button>
+
+                <hr>
+                
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">선택요일</label>
+                  <div class="col-sm-5">
+      <input type="checkbox" v-model="checkedDays" value="Mo">월요일
+      <input type="checkbox" v-model="checkedDays" value="Tu">화요일
+      <input type="checkbox" v-model="checkedDays" value="We">수요일
+      <input type="checkbox" v-model="checkedDays" value="Th">목요일
+      <input type="checkbox" v-model="checkedDays" value="Fr">금요일
+      <input type="checkbox" v-model="checkedDays" value="Sa">토요일
+      <input type="checkbox" v-model="checkedDays" value="Su">일요일
                   </div>
                 </div>
+
+<table>
+  <tr>
+    <th>분류</th>
+    <th>월</th>
+    <th>화</th>
+    <th>수</th>
+    <th>목</th>
+    <th>금</th>
+    <th>토</th>
+    <th>일</th>
+  </tr>
+  <tr>
+    <td>최소인원</td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Mo'].min_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Tu'].min_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['We'].min_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Th'].min_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Fr'].min_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Sa'].min_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Su'].min_user"></td>
+  </tr>
+  <tr>
+    <td>최대인원</td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Mo'].max_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Tu'].max_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['We'].max_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Th'].max_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Fr'].max_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Sa'].max_user"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Su'].max_user"></td>
+  </tr>
+  <template v-for="i in [0,1,2]">
+  <tr>
+    <td>시각</td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Mo'].start_time[i]"></td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Tu'].start_time[i]"></td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['We'].start_time[i]"></td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Th'].start_time[i]"></td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Fr'].start_time[i]"></td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Sa'].start_time[i]"></td>
+    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Su'].start_time[i]"></td>
+  </tr>
+  <tr>
+    <td>시각 추가가격</td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Mo'].price_with_time[i]"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Tu'].price_with_time[i]"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['We'].price_with_time[i]"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Th'].price_with_time[i]"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Fr'].price_with_time[i]"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Sa'].price_with_time[i]"></td>
+    <td><input style="width:90px;" type="number" v-model="item.base_week_option['Su'].price_with_time[i]"></td>
+  </tr>
+</template>
+</table>
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">영업 휴무일</label>
+                  <div class="col-sm-3" v-for="(data, index) in item.close_dates">
+                    <input type="" v-model="item.close_dates[index]">
+                  </div>
+                </div>
+
+                <hr>
+                
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">추가 코스 옵션</label>
+                  <div class="col-sm-3" v-for="(data, index) in item.base_price_option">
+                    <input type="" v-model="item.base_price_option[index].name">
+                    <input type="" v-model="item.base_price_option[index].price">
+                  </div>
+                </div>
+
+<hr>
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">추가 결제 옵션</label>
+                  <div class="col-sm-3" v-for="data in item.base_extra_price_option">
+                    <input type="" v-model="data.name">
+                    <input type="" v-model="data.price">
+                </div>
+                  </div>
+
               </div>
             </div>
             <div class="box-footer">
-              <div class="pull-left">
-                <button type="button" class="btn btn-primary btn-lg" @click="save">저장</button>
-              </div>
               <div class="pull-right">
-                <button v-if="item.status != 3" class="btn btn-lg btn-warning" @click="confirmActivity('confirm')"><b>위킨 승인</b></button>
+                <button v-if="item.status === 1 " class="btn btn-lg btn-warning" @click="confirmActivity('confirm')"><b>위킨 승인</b></button>
+                <button v-if="item.status === 9 || item.status === 3" class="btn btn-lg btn-warning" @click="confirmActivity('modify')"><b>위킨 수정</b></button>
                 <button v-if="item.status != 3" class="btn btn-lg btn-danger" @click="confirmActivity('reject')"><b>위킨 반려</b></button>
                 <button v-if="item.status == 3" class="btn btn-lg btn-danger" @click="confirmActivity('delete')"><b>위킨 삭제</b></button>
               </div>
@@ -214,11 +327,19 @@ import { getGeoCode, staticMap } from '../../util/google/map'
 import fireHelper from '../../util/google/firebase/storage'
 import { filterKoreaList } from '../../config'
 import moment from 'moment'
+import Datepicker from 'vuejs-datepicker'
 
 export default {
   name: 'ActivityDetail',
   data () {
     return {
+      tmpQuestions: [
+        '메이커님의 활동을 간단히 소개해주세요',
+        '메이커님의 활동을 하면 어떤 점이 좋나요',
+        '활동은 어떻게 진행되나요',
+        '해당 활동에 대해서 메이커님의 꿀팁이 있나요',
+        '업로드 파일 선택 어떤분들에게 좋은 활동일까요'
+      ],
       child: null,
       doubleClick: true,
       path: this.$route.params.key,
@@ -236,7 +357,8 @@ export default {
         temp: ''
       },
       modelChild: {},
-      filterKoreaList: filterKoreaList
+      filterKoreaList: filterKoreaList,
+      checkedDays: []
     }
   },
   created () {
@@ -256,9 +378,26 @@ export default {
       })
     },
     fetchData () {
-      this.$http.get(`/activity/${this.path}`)
+      this.$http.get(`/activity/front/${this.path}`)
       .then(res => {
         this.item = res.data
+        for (let week in this.item.base_week_option) {
+          if (this.item.base_week_option[String(week)].min_user > 0) {
+            this.checkedDays.push(String(week))
+          }
+        }
+        // 질문 5개 모아서 intro_detail에 때려박아야함
+        if (this.item.intro_detail === 'false') {
+          this.item.intro_detail = ''
+          let question = this.item.detail_question
+          for (let index in question) {
+            for (let i = 0; i < question[index].images.length; i++) {
+              let tmpImage = '<img src=' + question[index].images[i] + '><br>'
+              this.item.intro_detail += tmpImage
+            }
+            this.item.intro_detail += '<p>' + question[index].text + '</p>'
+          }
+        }
         return this.$http.get(`/env/conf/policy`)
       })
       .then(r => {
@@ -327,12 +466,40 @@ export default {
     confirmActivity (param) {
       if (param === 'confirm') {
         if (window.confirm('위킨을 승인 하시겠습니까?')) {
-          this.$http.put(`/activity/${this.path}`, this.item)
+          this.item.host_key = this.item.Host.host_key
+          this.$http.put(`/activity/front/${this.path}`, this.item)
           .then(_ => this.$http.put(`/activity/approve/${this.path}`))
           .then(r => {
             this.item.status = 3
             window.alert('승인 완료')
             this.$router.push('/approve')
+          })
+          .catch(e => {
+            console.log(e)
+            window.alert(moment().format() + '유성이에게 해당 화면을 보여주세요')
+          })
+        }
+      } else if (param === 'modify') {
+        if (window.confirm('수정을 승인하시겠습니까?')) {
+          this.item.host_key = this.item.Host.host_key
+          let originalAcitivityKey = this.item.category_two
+          this.$http.put(`/activity/front/${originalAcitivityKey}`, this.item)
+          .then(_ => this.$http.put(`/activity/approve/${originalAcitivityKey}`))
+          .then(r => {
+            this.$http.delete(`/activity/admin/${this.item.activity_key}`)
+              .then(result => {
+                this.item.status = 3
+                window.alert('수정 승인 완료')
+                this.$router.push('/approve')
+              })
+              .catch(e => {
+                console.log(e)
+                window.alert(moment().format() + '유성이에게 해당 화면을 보여주세요')
+              })
+          })
+          .catch(e => {
+            console.log(e)
+            window.alert(moment() + '유성이에게 해당 화면을 보여주세요')
           })
         }
       } else if (param === 'delete') {
@@ -429,7 +596,8 @@ export default {
     }
   },
   components: {
-    Trumbowyg
+    Trumbowyg,
+    Datepicker
   }
 }
 </script>
