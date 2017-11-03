@@ -35,7 +35,7 @@
                     <tbody>
                       <tr class="even" role="row" v-for="(item, key, index) in items">
                         <td class="sorting_1">{{item.doc_key}}</td>
-                        <td>{{item.User.name}}</td>
+                        <td>{{item.User === null ? '탈퇴회원' : item.User.name }}</td>
                         <td>{{item.Activity ? item.Activity.title : ''}}</td>
                         <td>
                           {{item.content}} <br />

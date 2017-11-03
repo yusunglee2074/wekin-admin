@@ -1,4 +1,5 @@
 import DashView from './components/Dash.vue'
+import TmDashView from './components/TmDash.vue'
 import LoginView from './components/Login.vue'
 import NotFoundView from './components/404.vue'
 
@@ -31,7 +32,9 @@ import WekinFinishDetail from './components/wekin/WekinFinishDetail.vue'
 import Approve from './components/approve/Approve.vue'
 
 import HostDetail from './components/host/HostDetail.vue'
+import HostDetailTm from './components/host/HostDetailTm.vue'
 import HostList from './components/host/HostList.vue'
+import HostListTm from './components/host/HostListTm.vue'
 
 import OrderList from './components/order/OrderList.vue'
 import OrderDetail from './components/order/OrderDetail.vue'
@@ -50,6 +53,29 @@ const routes = [
   {
     path: '/login',
     component: LoginView
+  },
+  {
+    path: '/tm',
+    component: TmDashView,
+    children: [
+      {
+        path: 'dashboard',
+        alias: '',
+        component: HostListTm,
+        name: 'HostListTm',
+        meta: {description: 'Overview of environment'}
+      }, {
+        path: 'hosttm',
+        component: HostListTm,
+        name: 'HostListTm',
+        meta: {description: 'Overview of environment'}
+      }, {
+        path: 'hosttm/:key',
+        component: HostDetailTm,
+        name: 'HostDetailTm',
+        meta: {description: 'Approve'}
+      }
+    ]
   },
   {
     path: '/',

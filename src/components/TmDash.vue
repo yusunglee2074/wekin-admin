@@ -37,7 +37,18 @@
     </header>
 
     <!-- Left side column. contains the logo and sidebar -->
-    <sidebar />
+    <aside class="main-sidebar">
+
+      <section class="sidebar">
+  <ul class="sidebar-menu">
+    <li class="active pageLink" >
+      <router-link to="/tm/hosttm"><i class="fa fa-user-plus"></i>
+        <span class="page">메이커 관리</span>
+      </router-link>
+    </li>
+  </ul>
+      </section>
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -67,9 +78,7 @@
 
 <script>
 import Sidebar from './Sidebar'
-import 'hideseek'
 import firebase from 'firebase'
-import { adminList } from '../config'
 
 export default {
   name: 'Dash',
@@ -88,26 +97,6 @@ export default {
       this.fireAuth.signOut()
       this.$router.push('/login')
     }
-  },
-  created () {
-    this.fireAuth.onAuthStateChanged(u => {
-      if (u) {
-        this.currentUser = u
-        console.log(u.uid)
-        if (adminList.includes(u.uid)) {
-          u.getIdToken().then(r => {
-            this.$http.defaults.headers.common['x-access-token'] = r
-            window.localStorage.setItem('token', r)
-            console.log(r)
-          })
-        } else {
-          this.fireAuth.signOut()
-        }
-      } else {
-        this.$router.push('/login')
-      }
-    })
-    this.$http.defaults.headers.common['x-access-token'] = window.localStorage.getItem('token')
   }
 }
 </script>
