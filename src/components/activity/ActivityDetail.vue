@@ -382,7 +382,7 @@ export default {
       .then(res => {
         this.item = res.data
         for (let week in this.item.base_week_option) {
-          if (this.item.base_week_option[String(week)].min_user > 0) {
+          if (this.item.base_week_option[String(week)].start_time.length > 0) {
             this.checkedDays.push(String(week))
           }
         }
@@ -428,6 +428,11 @@ export default {
       .then(v => {
         this.item.address = v.formatted_address.replace('대한민국 ', '')              // 주소
         let tmp = this.item.address.substring(0, 2)           // 지역
+        this.item.address_detail.locationActivity = {
+          lat: v.geometry.location.lat,
+          lng: v.geometry.location.lng
+        }
+        console.log('이유성짱', this.item.address_detail.locationActivity)
 
         if (this.filterKoreaList.includes(tmp)) {
           this.item.address_detail.area = tmp
