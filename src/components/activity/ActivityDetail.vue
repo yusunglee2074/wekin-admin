@@ -385,6 +385,12 @@ export default {
           if (this.item.base_week_option[String(week)].start_time.length > 0) {
             this.checkedDays.push(String(week))
           }
+          // 시작시각이 ''이면 아예 빼버림
+          let item = this.item.base_week_option[week]
+          if (item.start_time[item.start_time.length - 1] === '') {
+            item.start_time.splice(-1, 1)
+            item.price_with_time.splice(-1, 1)
+          }
         }
         // 질문 5개 모아서 intro_detail에 때려박아야함
         if (this.item.intro_detail === 'false') {
