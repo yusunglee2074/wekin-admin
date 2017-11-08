@@ -49,6 +49,13 @@
                         <textarea class="form-control" id="introduce" placeholder="소개" v-model="item.history" rows="5"></textarea>
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label for="introduce" class="col-sm-2 control-label"> 진행가능 언어</label>
+
+                      <div class="col-sm-8">
+                        <textarea class="form-control" id="introduce" placeholder="진행가능 언어" v-model="item.language" rows="5"></textarea>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="col-md-6">
