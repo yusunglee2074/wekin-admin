@@ -10,6 +10,7 @@
         <span class="page">메인 관리</span>
       </router-link>
     </li>
+    <!--
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/ledger/wekin"><i class="fa fa-pie-chart"></i>
         <span class="page">위킨 매출통계</span>
@@ -20,6 +21,7 @@
         <span class="page">메이커 매출관리</span>
       </router-link>
     </li>
+    -->
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/approve"><i class="fa fa-calendar-check-o"></i>
         <span class="page">승인관리</span>
