@@ -438,7 +438,6 @@ export default {
           lat: v.geometry.location.lat,
           lng: v.geometry.location.lng
         }
-        console.log('이유성짱', this.item.address_detail.locationActivity)
 
         if (this.filterKoreaList.includes(tmp)) {
           this.item.address_detail.area = tmp
