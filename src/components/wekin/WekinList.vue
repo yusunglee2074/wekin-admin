@@ -19,7 +19,7 @@
                         <th style="width: 15%;">위킨 제목</th>
                         <th style="width: 10%;">등록 시작일</th>
                         <th style="width: 10%;">등록 종료일</th>
-                        <th style="width: 8%; cursor: pointer;" @click="ordering('toEnd')">종료까지</th>
+                        <th style="width: 8%; cursor: pointer;" @click="ordering('toEnd')">종료일기준</th>
                         <th style="width: 8%; cursor: pointer;" @click="ordering('paidPeople')">신청인원</th>
                         <th style="width: 7%;">조회수</th>
                         <th style="width: 7%;">예약자</th>
@@ -47,7 +47,7 @@
                         <td>{{ item.title }}</td>
                         <td>{{ item.start_date | date('L') }}</td>
                         <td>{{ item.end_date | date('L') }}</td>
-                        <td>{{ endList[index] > 0 ? endList[index] + '일 남음' : '종료'}}</td>
+                        <td>{{ doneToDate[index] + '일 초과'}}</td>
                         <td>{{ item.wekinnew_count }}</td>
                         <td>{{ item.count }}</td>
                         <td><router-link :to="{ name: 'WekinOrder', params: { key: item.activity_key, item: item } }"><button class="btn btn-warning">확인</button></router-link></td>
@@ -84,8 +84,17 @@ export default {
   computed: {
     endList: function () {
       let endList = []
-      for (let i = 0; i < this.items.length; i++) {
+      let length = this.items.length
+      for (let i = 0; i < length; i++) {
         endList.push(moment(this.items[i].end_date).diff(moment(), 'days'))
+      }
+      return endList
+    },
+    doneToDate: function () {
+      let endList = []
+      let length = this.doneItems.length
+      for (let i = 0; i < length; i++) {
+        endList.push(moment(this.doneItems[i].end_date).diff(moment(), 'days'))
       }
       return endList
     }
