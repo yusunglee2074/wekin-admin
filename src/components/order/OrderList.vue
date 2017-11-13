@@ -160,7 +160,7 @@ export default {
           this.items = res.data.data
         })
         .catch(err => {
-          window.alert('유성이에게 해당 화면을 보여주세요.' + err + moment().format())
+          window.alert('새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요.' + err + moment().format())
         })
     }
     /*

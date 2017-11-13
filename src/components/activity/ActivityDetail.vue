@@ -486,7 +486,7 @@ export default {
           })
           .catch(e => {
             console.log(e)
-            window.alert(moment().format() + '유성이에게 해당 화면을 보여주세요')
+            window.alert(moment().format() + '새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요')
           })
         }
       } else if (param === 'modify') {
@@ -504,12 +504,12 @@ export default {
               })
               .catch(e => {
                 console.log(e)
-                window.alert(moment().format() + '유성이에게 해당 화면을 보여주세요')
+                window.alert(moment().format() + '새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요')
               })
           })
           .catch(e => {
             console.log(e)
-            window.alert(moment() + '유성이에게 해당 화면을 보여주세요')
+            window.alert(moment().format() + '새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요')
           })
         }
       } else if (param === 'delete') {

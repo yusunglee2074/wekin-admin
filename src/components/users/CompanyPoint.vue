@@ -199,7 +199,7 @@ export default {
           .then(response => {
             window.alert('완료')
           })
-          .catch(error => window.alert(error + '에러발생 유성이에게 알려주세요'))
+          .catch(error => window.alert(error + '에러발생 새로고침 후에도 작동이 안된다면  유성이에게 알려주세요'))
       }
     },
     showDetail (item) {

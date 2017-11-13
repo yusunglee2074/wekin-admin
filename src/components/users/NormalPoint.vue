@@ -200,7 +200,7 @@ export default {
             window.alert('성공')
             console.log(response)
           })
-          .catch(error => window.alert(error + '에러발생 유성이에게 문의 바람!'))
+          .catch(error => window.alert(error + '에러발생 새로고침 후에도 작동이 안된다면 유성이에게 문의 바람!'))
       }
     },
     showDetail (item) {
