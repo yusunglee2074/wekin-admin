@@ -64,6 +64,27 @@
         </li>
       </ul>
     </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-folder-o"></i>
+        <span>모바일 전용</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left fa-fw pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li>
+          <router-link to="/mobile/ad"><i class="fa fa-usd"></i>
+            <span class="page">모바일 홈화면 광고</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/mobile/recommend"><i class="fa fa-usd"></i>
+            <span class="page">모바일 홈화면 추천위킨 관리</span>
+          </router-link>
+        </li>
+      </ul>
+    </li>
     
     <li class="treeview">
       <a href="#">
