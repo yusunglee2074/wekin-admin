@@ -22,6 +22,8 @@ import FaqEdit from './components/board/FaqEdit.vue'
 import DocList from './components/doc/DocList.vue'
 import QnaList from './components/doc/QnaList.vue'
 import News from './components/doc/News.vue'
+import MobileAdBanner from './components/doc/MobileAdBanner.vue'
+import MobileRecommendWekin from './components/doc/MobileRecommendWekin.vue'
 
 import WekinList from './components/wekin/WekinList.vue'
 import WekinDetail from './components/wekin/WekinDetail.vue'
@@ -192,6 +194,16 @@ const routes = [
         component: News,
         name: 'News',
         meta: {description: '뉴스관리'}
+      }, {
+        path: 'mobile/ad',
+        component: MobileAdBanner,
+        name: 'MobileAdBanner',
+        meta: {description: '모바일 배너광고'}
+      }, {
+        path: 'mobile/recommend',
+        component: MobileRecommendWekin,
+        name: 'MobileRecommendWekin',
+        meta: {description: '모바일 추천위킨'}
       }, {
         path: 'approve',
         component: Approve,
