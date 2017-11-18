@@ -51,10 +51,10 @@
                   <table role="grid" id="data_table" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr role="row">
-                        <th style="width: 60px;">주문번호</th>
+                        <th style="width: 60px;">주문#</th>
                         <th style="width: 80px;">회원명</th>
                         <th style="width: 80px;">주문일</th>
-                        <th style="width: 60px;">위킨제목</th>
+                        <th style="width: 200px;">위킨제목</th>
                         <th style="width: 80px;">주문상태</th>
                         <th style="width: 80px;">결제수단</th>
                         <th style="width: 80px;">회원전화</th>
