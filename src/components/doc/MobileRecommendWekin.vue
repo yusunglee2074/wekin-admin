@@ -15,8 +15,11 @@
                     <div id="test">
                       <label for="image">메인 이미지</label>
                       <input type="file" id="image" @change="mainbanner($event)">
+                      <label for="image">디테일 이미지</label>
+                      <input type="file" id="image" @change="mainbanner2($event)">
                       <label for="name">관련 엑티비티들 </label>
                       <input type="text" id="name" v-model="newsLink">
+                      * 올릴 엑티비티들의 번호를 [1,2,3,4,5...] 형식으로 올려주세요
                     </div>
                     <button @click="submitImage">올려버리기</button>
                   </div>
@@ -54,7 +57,8 @@ export default {
       news: [],
       newsTitle: '',
       newsLink: '',
-      thumbNailUrl: null
+      thumbNailUrl: null,
+      thumbNailDetailUrl: null
     }
   },
   mounted () {
@@ -66,9 +70,14 @@ export default {
         this.thumbNailUrl = url.substring(0, url.indexOf('token') - 1)
       })
     },
+    mainbanner2 (event) {
+      fireHelper.imageUploadOne(event.target.files[0], url => {
+        this.thumbNailDetailUrl = url.substring(0, url.indexOf('token') - 1)
+      })
+    },
     submitImage () {
       let param = {
-        value: { image: this.thumbNailUrl, activity_list: this.newsLink }
+        value: { image: this.thumbNailUrl, detailImage: this.thumbNailDetailUrl, activity_list: this.newsLink }
       }
       this.$http.post('/env/mobile/recommend', param)
         .then(result => {
