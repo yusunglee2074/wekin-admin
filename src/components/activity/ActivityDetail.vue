@@ -39,8 +39,8 @@
                     <select v-model="item.category" class="ui dropdown" style="width: 300px;">
                       <option value="" disabled>카테고리</option>
                       <option value="투어/여행">투어/여행</option>
-                      <option value="익스트림 (레저)">익스트림 (레저)</option>
-                      <option value="스포츠 (구기종목)">스포츠 (구기종목)</option>
+                      <option value="익스트림">익스트림 (레저)</option>
+                      <option value="스포츠">스포츠 (구기종목)</option>
                       <option value="음악">음악</option>
                       <option value="댄스">댄스</option>
                       <option value="뷰티">뷰티</option>
