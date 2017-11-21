@@ -393,15 +393,15 @@ export default {
           }
         }
         // 질문 5개 모아서 intro_detail에 때려박아야함
-        if (this.item.intro_detail === 'false') {
+        if (this.item.intro_detail.length < 30) {
           this.item.intro_detail = ''
           let question = this.item.detail_question
           for (let index in question) {
             for (let i = 0; i < question[index].images.length; i++) {
-              let tmpImage = '<img src=' + question[index].images[i] + '><br>'
-              this.item.intro_detail += tmpImage
+              let tmpImage = '<img src=' + question[index].images[i] + '><br><br><br>'
+              this.item.intro_detail += tmpImage 
             }
-            this.item.intro_detail += '<p>' + question[index].text + '</p>'
+            this.item.intro_detail += (question[index].text.replace(/\n/g, '<br>')) + '<br><br><br>'
           }
         }
         return this.$http.get(`/env/conf/policy`)
