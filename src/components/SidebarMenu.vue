@@ -136,7 +136,7 @@
     <li class="treeview">
       <a href="#">
         <i class="fa fa-folder-o"></i>
-        <span>문자/메일 전송</span>
+        <span style="text-decoration: line-through;">메이커에게 문자/메일 전송</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left fa-fw pull-right"></i>
         </span>

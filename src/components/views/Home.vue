@@ -125,7 +125,6 @@ export default {
     fetchData () {
       this.$http.get('/env/main/banner')
       .then(r => {
-        console.log(r.data)
         r.data.sort(function (a, b) {
           return a.value.order - b.value.order
         })
