@@ -132,6 +132,28 @@
         <span style="text-decoration: line-through;" class="page">상품관리(네이버쇼핑용 (개발중))</span>
       </router-link>
     </li>
+
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-folder-o"></i>
+        <span>문자/메일 전송</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left fa-fw pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li>
+          <router-link to="/util/sms"><i class="fa fa-usd"></i>
+            <span class="page">문자메세지 전송</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/util/email"><i class="fa fa-usd"></i>
+            <span class="page">메일 전송</span>
+          </router-link>
+        </li>
+      </ul>
+    </li>
   </ul>
 </template>
 <script>
