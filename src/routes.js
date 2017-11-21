@@ -50,6 +50,9 @@ import RefundLedger from './components/ledger/RefundLedger.vue'
 
 import Home from './components/views/Home.vue'
 
+import SendSMS from './components/util/SendSMS.vue'
+import SendEmail from './components/util/SendEmail.vue'
+
 // Routes
 const routes = [
   {
@@ -249,6 +252,16 @@ const routes = [
         component: RefundLedger,
         name: 'RefundLedger',
         meta: {description: 'RefundLedger'}
+      }, {
+        path: 'util/sms',
+        component: SendSMS,
+        name: 'SendSMS',
+        meta: {description: '문자 전송'}
+      }, {
+        path: 'util/email',
+        component: SendEmail,
+        name: 'SendEmail',
+        meta: {description: '이메일 전송'}
       }
     ]
   }, {
