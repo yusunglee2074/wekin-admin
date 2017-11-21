@@ -139,9 +139,9 @@
                       </tr>
                       <tr v-for="item in dashboard.activityThatEndsSoon">
                         <td>{{ item.activity_key }}</td>
-                        <td>{{ item.title }}</td>
+                        <td><router-link :to="{ name: 'HostDetail', params: { key: item.host_key }}">{{ item.title }}</router-link></td>
                         <td>{{ calculateLeftDays(item) }}일</td>
-                        <td><button>전송</button></td>
+                        <td><button>준비중</button></td>
                       </tr>
                     </tbody>
                   </table>
