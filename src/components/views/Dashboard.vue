@@ -12,7 +12,7 @@
           <router-link to="/user">
             <div class="info-box-content">
               <span class="info-box-text">회원수</span>
-              <span class="info-box-number">{{dashboard.userCount}}</span>
+              <span class="info-box-number">{{dashboard.numberOfUser}}</span>
             </div>
           </router-link>
           <!-- /.info-box-content -->
@@ -28,7 +28,7 @@
           <router-link to="/user">
             <div class="info-box-content">
               <span class="info-box-text">신규 회원수</span>
-              <span class="info-box-number">{{dashboard.todaysUser}}</span>
+              <span class="info-box-number">{{dashboard.NumberOfTodayUser}}</span>
             </div>
           </router-link>
           <!-- /.info-box-content -->
@@ -48,7 +48,7 @@
           <router-link to="/wekin">
             <div class="info-box-content">
               <span class="info-box-text">활성 위킨수</span>
-              <span class="info-box-number">{{dashboard.todayActivateWekin}}</span>
+              <span class="info-box-number">{{dashboard.numberOfActiveActivity}}</span>
             </div>
           </router-link>
           <!-- /.info-box-content -->
@@ -63,8 +63,8 @@
 
           <router-link to="/order">
             <div class="info-box-content">
-              <span class="info-box-text">금일 주문건수</span>
-              <span class="info-box-number">{{dashboard.todaysOrderCount}}</span>
+              <span class="info-box-text">최근 일주일 주문건수</span>
+              <span class="info-box-number">{{dashboard.todayNumberOfPaid}}</span>
             </div>
           </router-link>
           <!-- /.info-box-content -->
@@ -83,7 +83,7 @@
             <div class="box-body">
               <div class="col-xs-12">
                 <p class="text-center">
-                  <strong>위킨 승인 요청</strong>
+                  <strong>위킨/메이커 승인 요청</strong>
                 </p>
                 <!-- /.box-header -->
                 <div class="box-body no-padding table-responsive">
@@ -94,9 +94,18 @@
                         <th>Task</th>
                         <th style="width: 40px">Label</th>
                       </tr>
-                      <tr v-for="item in homeWekinRequest">
+                      <tr v-for="item in dashboard.toBeConfirmedActivities">
                         <td>{{item.activity_key}}</td>
-                        <td>{{`메이커 ${item.Host.name} 님이 위킨(${item.title}) ${wekinRequest[item.status].status }요청을 했습니다.`}}</td>
+                        <td>{{`${item.Host.name} 님이 위킨(${item.title}) ${wekinRequest[item.status].status }요청을 했습니다.`}}</td>
+                        <td><span class="badge" v-bind:class="wekinRequest[item.status].style">{{wekinRequest[item.status].status}}</span></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr v-for="item in dashboard.toBeConfirmedMakers">
+                        <td>{{item.host_key}}</td>
+                        <td>{{`${item.name} 님이 메이커 승인 요청을 했습니다.`}}</td>
                         <td><span class="badge" v-bind:class="wekinRequest[item.status].style">{{wekinRequest[item.status].status}}</span></td>
                       </tr>
                     </tbody>
@@ -116,19 +125,23 @@
             <div class="box-body">
               <div class="col-xs-12">
                 <p class="text-center">
-                  <strong>메이커 승인 요청</strong>
+                  <strong>종료 임박 위킨</strong>
                 </p>
                 <!-- /.box-header -->
                 <div class="box-body no-padding table-responsive">
                   <table class="table table-striped">
                     <tbody>
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Task</th>
+                        <th style="width: 20px">#</th>
+                        <th>위킨명</th>
+                        <th>종료까지</th>
+                        <th>문자전송</th>
                       </tr>
-                      <tr v-for="item in homeHostRequest">
-                        <td>{{item.host_key}}</td>
-                        <td>{{`회원 [ ${item.name} ] 님이 메이커 승인요청을 했습니다.`}}</td>
+                      <tr v-for="item in dashboard.activityThatEndsSoon">
+                        <td>{{ item.activity_key }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ calculateLeftDays(item) }}일</td>
+                        <td><button>전송</button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -149,7 +162,7 @@
             <div class="box-body">
               <div class="col-xs-12">
                 <p class="text-center">
-                  <strong>환불 요청</strong>
+                  <strong>최근 결제정보 내역</strong>
                 </p>
                 <!-- /.box-header -->
                 <div class="box-body no-padding table-responsive">
@@ -157,11 +170,11 @@
                     <tbody>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Task</th>
+                        <th>정보</th>
                       </tr>
-                      <tr v-for="(item, index, key) in homeRefuneRequest">
-                        <td>{{index}}</td>
-                        <td>{{`회원 ${item.user_name} 님이 환불요청을 했습니다.`}}</td>
+                      <tr v-for="item in dashboard.recentWekinNew">
+                        <td>{{ item.wekin_key }}</td>
+                        <td>{{`${item.User.name } 님이 ${ item.state } 했습니다.`}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -191,9 +204,9 @@
                         <th>Task</th>
                         <th style="width: 40px">Label</th>
                       </tr>
-                      <tr v-for="item in homeRecentlyDocument">
+                      <tr v-for="item in dashboard.recentDoc">
                         <td>{{item.doc_key}}</td>
-                        <td>{{item.created_at | date('MM-DD HH:mm:ss') }}</td>
+                        <td>{{item.created_at | date('MM-DD HH:mm') }}</td>
                         <td>{{`회원 ${item.User.name} 님이 ${wekinDocument[item.type].category} 작성`}}</td>
                         <td><span class="badge" v-bind:class="wekinDocument[item.type].style">{{wekinDocument[item.type].category}}</span></td>
                       </tr>
@@ -214,6 +227,7 @@
 <script>
 import { wekinStatus, docStatus } from '../../config'
 import { storage } from '../../util/google/firebase'
+import moment from 'moment'
 
 export default {
   data () {
@@ -228,6 +242,9 @@ export default {
     }
   },
   methods: {
+    calculateLeftDays (item) {
+      return moment(item.end_date).diff(moment(), 'days')
+    },
     upload (event) {
       storage(event.target.files[0], pro => {
         console.log(pro)
@@ -238,25 +255,20 @@ export default {
     },
     fetchData () {
       this.$http.get('/dashboard/')
-      .then(r => {
-        this.dashboard = r.data
-        return this.$http.get('/dashboard/activity')
-      })
-      .then(r => {
-        this.homeWekinRequest = r.data
-        return this.$http.get('/dashboard/host')
-      })
-      .then(r => {
-        this.homeHostRequest = r.data
-        return this.$http.get('/dashboard/doc')
-      })
-      .then(r => {
-        this.homeRecentlyDocument = r.data
-        return this.$http.get('/dashboard/refund')
-      })
-      .then(r => {
-        this.homeRefuneRequest = r.data
-      })
+        .then(r => {
+          this.dashboard = r.data.data
+          var countPaid = 0
+          for (let i = 0; i < this.dashboard.recentWekinNew.length; i++) {
+            let wekin = this.dashboard.recentWekinNew[i]
+            if (wekin.state === 'paid' && moment(wekin.updated_at) > moment().add(-7, 'days')) {
+              countPaid++
+            }
+          }
+          this.dashboard.todayNumberOfPaid = countPaid
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   mounted () {
