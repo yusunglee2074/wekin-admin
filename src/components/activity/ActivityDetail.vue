@@ -401,7 +401,7 @@ export default {
               let tmpImage = '<img src=' + question[index].images[i] + '><br><br><br>'
               this.item.intro_detail += tmpImage
             }
-            this.item.intro_detail += (question[index].text.replace(/\n/g, '<br>')) + '<br><br><br>'
+            this.item.intro_detail += (question[index].text ? question[index].text.replace(/\n/g, '<br>') : null) + '<br><br><br>'
           }
         }
         return this.$http.get(`/env/conf/policy`)
@@ -458,6 +458,7 @@ export default {
     googleMapMeet () {  // 집결지
       getGeoCode(this.item.address_detail.meet_area)
       .then(v => {
+        console.log(v)
         this.item.address_detail.location = {
           lat: v.geometry.location.lat,
           lng: v.geometry.location.lng
