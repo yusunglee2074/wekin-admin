@@ -232,7 +232,17 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      dashboard: null,
+      dashboard: {
+        NumberOfTodayUser: null,
+        activityThatEndsSoon: null,
+        numberOfActiveActivity: null,
+        numberOfUser: null,
+        recentDoc: null,
+        recentWekinNew: null,
+        toBeConfirmedActivities: null,
+        toBeConfirmedMakers: null,
+        todayNumberOfPaid: null
+      },
       homeWekinRequest: null,
       homeHostRequest: null,
       homeRefuneRequest: null,
@@ -271,7 +281,7 @@ export default {
         })
     }
   },
-  mounted () {
+  created () {
     this.fetchData()
   }
 }
