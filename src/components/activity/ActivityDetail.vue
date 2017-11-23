@@ -475,6 +475,11 @@ export default {
       this.item.intro_detail = content
     },
     confirmActivity (param) {
+      // 후무일이 재 저장될때 스트링으로 바뀌는 문제 해결
+      for (let i = 0; i < this.item.close_dates.length; i++) {
+        console.log(this.item.close_dates[i])
+        this.item.close_dates[i] = Number(this.item.close_dates[i])
+      }
       if (param === 'confirm') {
         if (window.confirm('위킨을 승인 하시겠습니까?')) {
           this.item.host_key = this.item.Host.host_key
@@ -492,22 +497,17 @@ export default {
         }
       } else if (param === 'modify') {
         if (window.confirm('수정을 승인하시겠습니까?')) {
-          if (this.item.status === '9') {
+          if (this.item.status === 9) {
             this.item.host_key = this.item.Host.host_key
             let originalAcitivityKey = this.item.category_two
             this.$http.put(`/activity/front/${originalAcitivityKey}`, this.item)
-              .then(_ => this.$http.put(`/activity/approve/${originalAcitivityKey}`))
               .then(r => {
-                this.$http.delete(`/activity/admin/${this.item.activity_key}`)
-                  .then(result => {
-                    this.item.status = 3
-                    window.alert('수정 승인 완료')
-                    this.$router.push('/approve')
-                  })
-                  .catch(e => {
-                    console.log(e)
-                    window.alert(moment().format() + '새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요')
-                  })
+                return this.$http.delete(`/activity/admin/${this.item.activity_key}`)
+              })
+              .then(result => {
+                this.item.status = 3
+                window.alert('수정 승인 완료')
+                this.$router.push('/approve')
               })
               .catch(e => {
                 console.log(e)
