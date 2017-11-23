@@ -275,11 +275,23 @@
   </tr>
 </template>
 </table>
-                <div class="form-group">
+                <div class="form-group" style="min-height:300px;position:relative;">
                   <label for="price" class="col-sm-2 control-label">영업 휴무일</label>
-                  <div class="col-sm-3" v-for="(data, index) in item.close_dates">
-                    <input type="" v-model="item.close_dates[index]">
+                  <div style="position:absolute;right:340px;top:50px;">
+                    <datepicker 
+                      v-model="tempEndDate" 
+                      id="datepickerId" 
+                      wapper-class="ui input styled primary left icon" 
+                      language="ko" 
+                      format="MMM dd(D), yyyy"
+                      placeholder="휴무일"
+                      :inline=true>
+                    </datepicker>
                   </div>
+                  <span v-for="(data, index) in item.close_dates">
+                    {{ data | formatDateWithMoment }}
+                    <button @click="item.close_dates.splice(index, 1)">삭제</button>
+                  </span>
                 </div>
 
                 <hr>
@@ -364,6 +376,23 @@ export default {
   created () {
     this.fetchData()
   },
+  computed: {
+    tempEndDate: {
+      get () {
+        return null
+      },
+      set (newDate) {
+        this.item.close_dates.push(newDate)
+        return null
+      }
+    }
+  },
+  filters: {
+    formatDateWithMoment: date => {
+      console.log(date)
+      return moment(date).format('YYYY.MM.DD')
+    }
+  },
   methods: {
     deleteImage (index) {
       this.item.main_image.image.splice(index, 1)
@@ -403,6 +432,10 @@ export default {
             }
             this.item.intro_detail += (question[index].text ? question[index].text.replace(/\n/g, '<br>') : null) + '<br><br><br>'
           }
+        }
+        for (let i = 0; i < this.item.close_dates.length; i++) {
+          let item = this.item.close_dates
+          item[i] = (moment('20' + item[i].slice(0, 2) + '-' + item[i].slice(2, 4) + '-' + item[i].slice(4, 6)).format())
         }
         return this.$http.get(`/env/conf/policy`)
       })
@@ -458,7 +491,6 @@ export default {
     googleMapMeet () {  // 집결지
       getGeoCode(this.item.address_detail.meet_area)
       .then(v => {
-        console.log(v)
         this.item.address_detail.location = {
           lat: v.geometry.location.lat,
           lng: v.geometry.location.lng
@@ -476,10 +508,6 @@ export default {
     },
     confirmActivity (param) {
       // 후무일이 재 저장될때 스트링으로 바뀌는 문제 해결
-      for (let i = 0; i < this.item.close_dates.length; i++) {
-        console.log(this.item.close_dates[i])
-        this.item.close_dates[i] = Number(this.item.close_dates[i])
-      }
       if (param === 'confirm') {
         if (window.confirm('위킨을 승인 하시겠습니까?')) {
           this.item.host_key = this.item.Host.host_key
@@ -498,8 +526,11 @@ export default {
       } else if (param === 'modify') {
         if (window.confirm('수정을 승인하시겠습니까?')) {
           if (this.item.status === 9) {
+            console.log('여긴 들어오냐')
             this.item.host_key = this.item.Host.host_key
             let originalAcitivityKey = this.item.category_two
+            this.item.status = 3
+            this.item.count = null
             this.$http.put(`/activity/front/${originalAcitivityKey}`, this.item)
               .then(r => {
                 return this.$http.delete(`/activity/admin/${this.item.activity_key}`)
