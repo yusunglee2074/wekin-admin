@@ -157,7 +157,7 @@ export default {
       // this.$http.get(`/order/pageing/?${this.serialize(this.$route.query)}`)
       this.$http.get(`/order/pageing/`)
         .then(res => {
-          this.items = res.data.data
+          this.items = res.data.data.reverse()
         })
         .catch(err => {
           window.alert('새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요.' + err + moment().format())
