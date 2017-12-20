@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     dayPlusTime (day, time) {
-      return moment(day).set('hour', moment(time).get('hour')).set('minute', moment(time).get('minute')).format('YY-MM-DD LT')
+      return moment(day).set('hour', moment(time).get('hour')).add(-9, 'hour').set('minute', moment(time).get('minute')).format('YY-MM-DD LT')
     }
   },
   created () {
