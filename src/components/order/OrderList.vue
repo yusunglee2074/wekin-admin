@@ -53,10 +53,10 @@
                       <tr role="row">
                         <th style="width: 60px;">주문#</th>
                         <th style="width: 80px;">회원명</th>
-                        <th style="width: 80px;">주문일</th>
+                        <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForDate(items, 'order_at', 'order')">주문일</th>
                         <th style="width: 200px;">위킨제목</th>
-                        <th style="width: 80px;">주문상태</th>
-                        <th style="width: 80px;">결제수단</th>
+                        <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString(items, 'status')">주문상태</th>
+                        <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString(items, 'order_pay_method')">결제수단</th>
                         <th style="width: 80px;">회원전화</th>
                         <th style="width: 80px;">신청금액</th>
                         <th style="width: 80px;">입금금액</th>
@@ -115,6 +115,11 @@ export default {
         start: moment(this.now).set('days', -10).format('YYYY-MM-DD'),
         end: moment(this.now).format('YYYY-MM-DD'),
         wekin_key: ''
+      },
+      toggleSwitch: {
+        order: false,
+        status: false,
+        order_pay_method: false
       }
     }
   },
@@ -129,6 +134,52 @@ export default {
   },
   */
   methods: {
+    sortingMachineForString (list, sortingValue) {
+      this.toggleSwitch[sortingValue] = !this.toggleSwitch[sortingValue]
+      if (this.toggleSwitch[sortingValue] === true) {
+        list.sort(function (a, b) {
+          if (a[sortingValue] === null) {
+            return 1
+          } else if (b[sortingValue] === null) {
+            return -1
+          }
+          let nameA = a[sortingValue].toUpperCase() // ignore upper and lowercase
+          let nameB = b[sortingValue].toUpperCase() // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1
+          }
+          if (nameA > nameB) {
+            return 1
+          }
+          return 0
+        })
+      } else {
+        list.sort(function (a, b) {
+          let nameA = a[sortingValue] ? a[sortingValue].toUpperCase() : a[sortingValue] // ignore upper and lowercase
+          let nameB = b[sortingValue] ? b[sortingValue].toUpperCase() : b[sortingValue] // ignore upper and lowercase
+          if (nameA > nameB) {
+            return -1
+          }
+          if (nameA < nameB) {
+            return 1
+          }
+          return 0
+        })
+      }
+    },
+    sortingMachineForDate (list, sortingValue, sortingValueName) {
+      if (this.toggleSwitch[sortingValueName] === true) {
+        this.toggleSwitch[sortingValueName] = !this.toggleSwitch[sortingValueName]
+        list.sort((a, b) => {
+          return moment(a[sortingValue]) - moment(b[sortingValue])
+        })
+      } else {
+        this.toggleSwitch[sortingValueName] = !this.toggleSwitch[sortingValueName]
+        list.sort((a, b) => {
+          return moment(b[sortingValue]) - moment(a[sortingValue])
+        })
+      }
+    },
     isInDate (day) {
       let orderDay = moment(day)
       if (orderDay.isSameOrBefore(this.query.end, 'day') && orderDay.isSameOrAfter(this.query.start, 'day')) {
