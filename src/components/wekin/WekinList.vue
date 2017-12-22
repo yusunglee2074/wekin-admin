@@ -19,8 +19,10 @@
                         <th style="width: 15%;">위킨 제목</th>
                         <th style="width: 10%;">등록 시작일</th>
                         <th style="width: 10%;">등록 종료일</th>
-                        <th style="width: 8%; cursor: pointer;" @click="ordering('toEnd')">종료일기준</th>
-                        <th style="width: 8%; cursor: pointer;" @click="ordering('paidPeople')">신청인원</th>
+                        <th style="width: 8%;;cursor: pointer;" class="sorting" v-if="!showEnd" @click="sortingMachineForDate(items, 'end_date', 'end_date')">종료일기준</th>
+                        <th style="width: 8%; cursor: pointer;" class="sorting" v-if="!showEnd" @click="sortingMachineForString(items, 'wekinnew_count')">신청인원</th>
+                        <th style="width: 8%;;cursor: pointer;" class="sorting" v-if="showEnd" @click="sortingMachineForDate(doneItems, 'end_date', 'end_date')">종료일기준</th>
+                        <th style="width: 8%; cursor: pointer;" class="sorting" v-if="showEnd" @click="sortingMachineForString(doneItems, 'wekinnew_count')">신청인원</th>
                         <th style="width: 7%;">조회수</th>
                         <th style="width: 7%;">예약자</th>
                         <th style="width: 7%;">디테일</th>
@@ -76,7 +78,11 @@ export default {
       items: [],
       doneItems: [],
       searchWord: '',
-      showEnd: false
+      showEnd: false,
+      toggleSwitch: {
+        wekinnew_count: false,
+        end_date: false
+      }
     }
   },
   updated () {
@@ -100,6 +106,52 @@ export default {
     }
   },
   methods: {
+    sortingMachineForString (list, sortingValue) {
+      this.toggleSwitch[sortingValue] = !this.toggleSwitch[sortingValue]
+      if (this.toggleSwitch[sortingValue] === true) {
+        list.sort(function (a, b) {
+          if (a[sortingValue] === null) {
+            return 1
+          } else if (b[sortingValue] === null) {
+            return -1
+          }
+          let nameA = a[sortingValue].toUpperCase() // ignore upper and lowercase
+          let nameB = b[sortingValue].toUpperCase() // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1
+          }
+          if (nameA > nameB) {
+            return 1
+          }
+          return 0
+        })
+      } else {
+        list.sort(function (a, b) {
+          let nameA = a[sortingValue] ? a[sortingValue].toUpperCase() : a[sortingValue] // ignore upper and lowercase
+          let nameB = b[sortingValue] ? b[sortingValue].toUpperCase() : b[sortingValue] // ignore upper and lowercase
+          if (nameA > nameB) {
+            return -1
+          }
+          if (nameA < nameB) {
+            return 1
+          }
+          return 0
+        })
+      }
+    },
+    sortingMachineForDate (list, sortingValue, sortingValueName) {
+      if (this.toggleSwitch[sortingValueName] === true) {
+        this.toggleSwitch[sortingValueName] = !this.toggleSwitch[sortingValueName]
+        list.sort((a, b) => {
+          return moment(a[sortingValue]) - moment(b[sortingValue])
+        })
+      } else {
+        this.toggleSwitch[sortingValueName] = !this.toggleSwitch[sortingValueName]
+        list.sort((a, b) => {
+          return moment(b[sortingValue]) - moment(a[sortingValue])
+        })
+      }
+    },
     fetchData () {
       this.$http.get('/activity/admin')
       .then(res => {
