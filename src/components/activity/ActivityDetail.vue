@@ -321,8 +321,7 @@
               <div class="pull-right">
                 <button v-if="item.status === 1 " class="btn btn-lg btn-warning" @click="confirmActivity('confirm')"><b>위킨 승인</b></button>
                 <button v-if="item.status === 9 || item.status === 3" class="btn btn-lg btn-warning" @click="confirmActivity('modify')"><b>위킨 수정</b></button>
-                <button v-if="item.status != 3" class="btn btn-lg btn-danger" @click="confirmActivity('reject')"><b>위킨 반려</b></button>
-                <button v-if="item.status == 3" class="btn btn-lg btn-danger" @click="confirmActivity('delete')"><b>위킨 삭제</b></button>
+                <button class="btn btn-lg btn-danger" @click="confirmActivity('delete')"><b>위킨 삭제</b></button>
               </div>
             </div>
           </div>
@@ -558,7 +557,7 @@ export default {
         }
       } else if (param === 'delete') {
         if (window.confirm('위킨을 삭제 하시겠습니까?')) {
-          this.$http.delete(`/activity/approve/${this.path}`)
+          this.$http.delete(`/activity/front/${this.path}`)
           .then(v => {
             this.item.status = 4
             window.alert('위킨을 삭제 완료')
