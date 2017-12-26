@@ -221,6 +221,7 @@
                   </div>
                 </div>
 
+  <h3 style="color: red;">필히 아래 시각 입력 하는 란은 HH:mm 형식으로 입력해주세요. 예)(o)13:30, 08:10, 22:00 || (x)3:21 3시13분</h3>
 <table>
   <tr>
     <th>분류</th>
@@ -255,13 +256,13 @@
   <template v-for="i in [0,1,2]">
   <tr>
     <td>시각</td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Mo'].start_time[i]"></td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Tu'].start_time[i]"></td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['We'].start_time[i]"></td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Th'].start_time[i]"></td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Fr'].start_time[i]"></td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Sa'].start_time[i]"></td>
-    <td><input style="width:104px;" type="time" v-model="item.base_week_option['Su'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['Mo'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['Tu'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['We'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['Th'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['Fr'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['Sa'].start_time[i]"></td>
+    <td><input style="width:104px;" v-model="item.base_week_option['Su'].start_time[i]"></td>
   </tr>
   <tr>
     <td>시각 추가가격</td>
@@ -303,16 +304,24 @@
                     <input type="" v-model="item.base_price_option[index].name">
                     <input type="" v-model="item.base_price_option[index].price">
                   </div>
+                  <div style="float: right; margin-right: 80px;">
+                    <button @click="item.base_price_option.length < 3 ? item.base_price_option.push({}) : null">+</button>
+                    <button @click="item.base_price_option.length > 1 ? item.base_price_option.splice(-1,1) : null">-</button>
+                  </div>
                 </div>
 
 <hr>
 
                 <div class="form-group">
                   <label for="price" class="col-sm-2 control-label">추가 결제 옵션</label>
-                  <div class="col-sm-3" v-for="data in item.base_extra_price_option">
-                    <input type="" v-model="data.name">
-                    <input type="" v-model="data.price">
+                  <div class="col-sm-3" v-for="(data, index) in item.base_extra_price_option">
+                    <input type="" v-model="item.base_extra_price_option[index].name">
+                    <input type="" v-model="item.base_extra_price_option[index].price">
                 </div>
+                  <div style="float: right; margin-right: 80px;">
+                    <button @click="item.base_extra_price_option.length < 3 ? item.base_extra_price_option.push({}) : null">+</button>
+                    <button @click="item.base_extra_price_option.length > 1 ? item.base_extra_price_option.splice(-1,1) : null">-</button>
+                  </div>
                   </div>
 
               </div>
