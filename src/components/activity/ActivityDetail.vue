@@ -329,7 +329,7 @@
             <div class="box-footer">
               <div class="pull-right">
                 <button v-if="item.status === 1 " class="btn btn-lg btn-warning" @click="confirmActivity('confirm')"><b>위킨 승인</b></button>
-                <button v-if="item.status === 9 || item.status === 3" class="btn btn-lg btn-warning" @click="confirmActivity('modify')"><b>위킨 수정</b></button>
+                <button v-if="item.status === 9 || item.status === 3 || item.status === 5" class="btn btn-lg btn-warning" @click="confirmActivity('modify')"><b>위킨 수정</b></button>
                 <button class="btn btn-lg btn-danger" @click="confirmActivity('delete')"><b>위킨 삭제</b></button>
               </div>
             </div>
