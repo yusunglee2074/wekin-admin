@@ -217,9 +217,13 @@
                     <label for="paid">입금 금액</label>
                     <input type="number" class="form-control" id="paid" placeholder="0" disabled="disabled" :value="item.order_pay_price">
                   </div>
-                  <div class="form-group col-sm-4">
-                    <label for="refund">환불 금액 입력</label>
+                  <div class="form-group col-sm-4" v-if="item.order_pay_method !== 'point'">
+                    <label for="refund">환불 금액 입력(현금)</label>
                     <input type="number" class="form-control" id="refund" placeholder="0" v-model="item.order_refund_price">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label for="refundpoint">환불 금액 입력(포인트)</label>
+                    <input type="number" class="form-control" id="refundpoint" placeholder="0" v-model="item.refund_point_price">
                   </div>
                   <button class="btn btn-danger" style="margin-top: 25px;" @click="confirmRefund(item.order_pay_price)" v-if="(item.order_refund_price != null) || (item.order_pay_price == 0)">환불 승인</button>
 
@@ -280,14 +284,15 @@ export default {
           })
         }
       } else {
-        if (window.confirm(`${this.item.order_refund_price} 원 환불하시겠습니까?`)) {
-          this.$http.post(`/order/refund/${this.item.order_key}`, {order_refund_price: this.item.order_refund_price})
-          .then(r => {
-            this.$router.go(-1)
-          })
-          .catch(e => {
-            window.alert(JSON.stringify(e.response.data))
-          })
+        if (window.confirm(`${this.item.order_refund_price} 원(+ 포인트 ${this.item.refund_point_price}) 환불하시겠습니까?`)) {
+          this.$http.post(`/point/refund/${this.item.order_key}`, { refundAmount: this.item.refund_point_price })
+            .then(result => {
+              this.$http.post(`/order/refund/${this.item.order_key}`, {order_refund_price: this.item.order_refund_price})
+            })
+            .then(r => {
+              this.$router.go(-1)
+            })
+            .catch(error => window.alert('에러발생', error))
         }
       }
     }
