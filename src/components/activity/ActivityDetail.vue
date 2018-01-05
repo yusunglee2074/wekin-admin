@@ -323,6 +323,23 @@
                     <button @click="item.base_extra_price_option.length > 1 ? item.base_extra_price_option.splice(-1,1) : null">-</button>
                   </div>
                   </div>
+<hr>
+
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">노출 사이트</label>
+<input type="radio" id="one" value="wekin" v-model="item.status_wetiful">
+<label for="one" style="margin-right: 10px;">위킨</label>
+<input type="radio" id="two" value="wetiful" v-model="item.status_wetiful">
+<label for="two" style="margin-right: 10px;">위티플</label>
+<input type="radio" id="trhee" value="both" v-model="item.status_wetiful">
+<label for="trhee">둘 모두</label>
+<br>
+                </div>
+                <div class="form-group">
+                  <label for="price" class="col-sm-2 control-label">수수료</label>
+                  <input type="number" placeholder="숫자만, 10%면 10" v-model="item.comision">
+                  <p style="color: red;">숫자만 입력 10%면 10</p>
+                </div>
 
               </div>
             </div>
