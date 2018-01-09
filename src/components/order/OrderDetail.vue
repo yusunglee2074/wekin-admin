@@ -288,6 +288,7 @@ export default {
           this.$http.post(`/point/refund/${this.item.order_key}`, { refundAmount: this.item.refund_point_price })
             .then(result => {
               this.$http.post(`/order/refund/${this.item.order_key}`, {order_refund_price: this.item.order_refund_price})
+                .catch(error => window.alert('에러발생', error))
             })
             .then(r => {
               this.$router.go(-1)
