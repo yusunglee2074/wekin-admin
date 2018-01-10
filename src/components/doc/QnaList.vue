@@ -38,8 +38,8 @@
                       <tr class="even" role="row" v-for="(item, key, index) in items">
                         <td class="sorting_1">{{item.doc_key}}</td>
                         <td>{{item.User.name}}</td>
-                        <td>{{(item.Activity) ? item.Activity.Host.name : ''}}</td>
-                        <td>{{item.Activity ? item.Activity.title : ''}}</td>
+                        <td>{{(item.ActivityNew) ? item.ActivityNew.Host.name : ''}}</td>
+                        <td>{{item.ActivityNew ? item.ActivityNew.title : ''}}</td>
                         <td>
                           질문 : {{item.content}} <br />
                           답변 : {{item.answer}}
