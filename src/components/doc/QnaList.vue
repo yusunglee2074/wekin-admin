@@ -20,7 +20,7 @@
 
               <div class="row">
                 <div class="col-sm-12 table-responsive">
-                  <table aria-describedby="example1_info" role="grid" id="example1" class="table table-bordered table-striped dataTable">
+                  <table aria-describedby="example1_info" role="grid" id="qnatable" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr role="row">
                         <th aria-label="데이터 고유 key" aria-sort="ascending" style="width: 10px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">ID</th>
@@ -29,8 +29,9 @@
                         <th aria-label="제목" style="width: 50px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">위킨종류</th>
                         <th aria-label="작성일" style="width: 450px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">내용</th>
                         <th aria-label="작성일" style="width: 80px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">작성일</th>
-                        <th aria-label="자세히 보기" style="width: 20px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">결과</th>
-                        <th aria-label="자세히 보기" style="width: 30px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">삭제</th>
+                        <th aria-label="결과" style="width: 20px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">결과</th>
+                        <th aria-label="삭제" style="width: 30px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">삭제</th>
+                        <th style="width: 30px;" colspan="1" rowspan="1" aria-controls="example1" tabindex="0" class="sorting">답변</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -49,6 +50,7 @@
                           <Category text="답변대기" color="DB402C" v-if="!item.answer"></Category>
                         </td>
                         <td><button class="btn btn-danger" @click="btnClick(item)">삭제</button></td>
+                        <td><button class="btn btn-primary" @click="answer(item.doc_key, item.content)">답변</button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -60,29 +62,42 @@
         </div>
       </div>
     </div>
+    <answer v-show="answerShow" v-on:cancel="closeAnswer()" :docKey="answerDocKey" :questionText="answerQuestion"></answer>
   </section>
 </template>
 
 <script>
-import $ from 'jquery'
+// import $ from 'jquery'
 import 'datatables.net'
 import 'datatables.net-bs'
 import Category from '../Category'
+import answer from './Answer'
 import { docStatus } from '../../config'
 
 export default {
-  components: { Category },
+  components: { Category, answer },
   name: 'DocList',
   data () {
     return {
       items: null,
-      status: docStatus
+      status: docStatus,
+      answerShow: false,
+      answerDocKey: null,
+      answerQuestion: null
     }
   },
   mounted () {
     this.fetchData()
   },
   methods: {
+    closeAnswer () {
+      this.answerShow = false
+    },
+    answer (docKey, question) {
+      this.answerDocKey = docKey
+      this.answerQuestion = question
+      this.answerShow = true
+    },
     btnClick (item) {
       if (window.confirm('정말로 삭제하시겠습니까?')) {
         this.$http.delete(`/doc/${item.doc_key}`)
@@ -93,7 +108,7 @@ export default {
       }
     },
     fetchData () {
-      this.$http.get('/doc/qna/ ')
+      this.$http.get('/doc/qna/')
       .then(res => {
         this.items = res.data
       })
@@ -101,9 +116,11 @@ export default {
     }
   },
   updated () {
-    $('#example1').DataTable({
+    /*
+    $('#qnatable').DataTable({
       'order': [[0, 'desc']]
     })
+    */
   }
 }
 </script>
