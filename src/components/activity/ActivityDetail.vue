@@ -556,7 +556,10 @@ export default {
             let originalAcitivityKey = this.item.category_two
             this.item.status = 3
             this.item.count = null
-            this.$http.put(`/activity/front/${originalAcitivityKey}`, this.item)
+            global.setAccessTokenOnLocalStorageAndHttpHeader(this.$http.defaults)
+              .then(r => {
+                return this.$http.put(`/activity/front/${originalAcitivityKey}`, this.item)
+              })
               .then(r => {
                 return this.$http.delete(`/activity/admin/${this.item.activity_key}`)
               })
@@ -570,7 +573,10 @@ export default {
                 window.alert(moment().format() + '새로고침 후에도 작동이 안된다면 유성이에게 해당 화면을 보여주세요')
               })
           } else {
-            this.$http.put(`/activity/front/${this.item.activity_key}`, this.item)
+            global.setAccessTokenOnLocalStorageAndHttpHeader(this.$http.defaults)
+              .then(r => {
+                return this.$http.put(`/activity/front/${this.item.activity_key}`, this.item)
+              })
               .then(result => {
                 window.alert('수정 승인 완료')
                 this.$router.push('/approve')

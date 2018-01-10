@@ -99,6 +99,7 @@
 import { hostStatus } from '../../config'
 // import Pageable from '../Pageable'
 import moment from 'moment'
+import global from './../../global'
 
 export default {
   components: {
@@ -206,7 +207,10 @@ export default {
     */
     fetchData () {
       // this.$http.get(`/order/pageing/?${this.serialize(this.$route.query)}`)
-      this.$http.get(`/order/pageing/`)
+      global.setAccessTokenOnLocalStorageAndHttpHeader(this.$http.defaults)
+        .then(result => {
+          return this.$http.get(`/order/pageing/`)
+        })
         .then(res => {
           this.items = res.data.data.reverse()
         })
