@@ -50,6 +50,7 @@
                       <option value="아웃도어">아웃도어</option>
                       <option value="요가/피트니스">요가/피트니스</option>
                       <option value="소품제작">소품제작</option>
+                      <option value="한국체험">한국체험</option>
                     </select>
                   </div>
                 </div>
@@ -61,7 +62,7 @@
                   </div>
                 </div>
 
-                <div class="form-group" v-for="(data, i, y) in item.detail_question" :key="y">
+                <div class="form-group" v-for="(data, i, y) in item.detail_question" :key="y" v-if="y < 5">
                   <label for="inputName" class="col-sm-2 control-label">{{ tmpQuestions[y] }}</label>
                   <div class="col-sm-8">
                     <textarea id="" name="" cols="60" style="float:left;" rows="6" v-model="data.text"></textarea>
@@ -84,9 +85,20 @@
 
                 <div class="form-group">
                   <label for="schedule" class="col-sm-2 control-label">세부 일정</label>
-
                   <div class="col-sm-8">
                     <textarea class="form-control" id="schedule" placeholder="세부 일정" v-model="item.schedule" rows="5"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="schedule" class="col-sm-2 control-label">소요 시각</label>
+                  <div class="col-sm-8">
+                    <select style="width:300px; height: 36px;" v-model="item.detail_question.requiredTime">
+                      <option value="1">1시간 이내</option>
+                      <option value="2">2시간 이내</option>
+                      <option value="3">3시간 이내</option>
+                      <option value="4">4시간 이상</option>
+                    </select>
                   </div>
                 </div>
 
