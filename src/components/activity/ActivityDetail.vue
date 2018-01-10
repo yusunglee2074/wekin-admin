@@ -365,6 +365,7 @@ import fireHelper from '../../util/google/firebase/storage'
 import { filterKoreaList } from '../../config'
 import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
+import global from './../../global'
 
 export default {
   name: 'ActivityDetail',
