@@ -460,11 +460,11 @@ export default {
           }
         }
         // 질문 5개 모아서 intro_detail에 때려박아야함
-        if (this.item.intro_detail.length < 30) {
+        if (this.item.intro_detail.length < 9) {
           this.item.intro_detail = ''
           let question = this.item.detail_question
           for (let index in question) {
-            for (let i = 0; i < question[index].images.length; i++) {
+            for (let i = 0; (i < question[index].images ? question[index].images.length : 0); i++) {
               let tmpImage = '<img src=' + question[index].images[i] + '><br><br><br>'
               this.item.intro_detail += tmpImage
             }
