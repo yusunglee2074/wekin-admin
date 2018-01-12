@@ -52,6 +52,7 @@ import Home from './components/views/Home.vue'
 
 import SendSMS from './components/util/SendSMS.vue'
 import SendEmail from './components/util/SendEmail.vue'
+import imageApi from './components/util/imageApi.vue'
 
 // Routes
 const routes = [
@@ -262,6 +263,11 @@ const routes = [
         component: SendEmail,
         name: 'SendEmail',
         meta: {description: '이메일 전송'}
+      }, {
+        path: 'imageApi',
+        component: imageApi,
+        name: 'imageApi',
+        meta: {description: '한국 관광공사 이미지 api 활용'}
       }
     ]
   }, {

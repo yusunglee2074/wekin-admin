@@ -154,6 +154,11 @@
         </li>
       </ul>
     </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/imageApi"><i class="fa fa-commenting"></i>
+        <span class="page">한국 관광공사 사진 검색</span>
+      </router-link>
+    </li>
   </ul>
 </template>
 <script>
