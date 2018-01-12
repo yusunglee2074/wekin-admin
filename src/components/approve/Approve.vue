@@ -89,7 +89,7 @@
                           <td><img :src="item.profile_image | img" width="50" height="50"></td>
                           <td><Category v-if="item.type != null" :text="hostType[item.type].text" :color="hostType[item.type].color"></Category></td>
                           <td>{{item.name}}</td>
-                          <td>{{item.User.email}}</td>
+                          <td>{{item.email}}</td>
                           <td>{{item.tel}}</td>
                           <td>{{item.introduce}}</td>
                           <td><router-link :to="'/host/' + item.host_key"><button class="btn btn-primary">보기</button></router-link></td>
