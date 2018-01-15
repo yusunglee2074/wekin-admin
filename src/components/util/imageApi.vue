@@ -4,7 +4,7 @@
       <h1>한국 관광공사 무료 api 이미지 검색</h1>
     </div>
     <div>
-      <label for="searchWord">검색어</label><input type="text" id="searchWord" v-model="searchWord"><button @click="fetchData(searchWord)">검색</button>
+      <label for="searchWord">검색어</label><input type="text" id="searchWord" v-model="searchWord" @keyup.enter.once="fetchData(searchWord)">
     </div>
     <div class="container" v-if="images.length">
       <h3>검색 결과</h3>
