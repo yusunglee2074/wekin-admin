@@ -478,10 +478,6 @@ export default {
         return this.$http.get(`/env/conf/policy`)
       })
       .then(r => {
-        this.policy.text = r.data[0].value.body
-        return this.$http.get(`/activity/wekin/${this.path}`)
-      })
-      .then(r => {
         this.child = r.data.map(v => {
           let tmp = v
           tmp.start_date = moment(v.start_date).locale('ko').format('YYYY-MM-DDTHH:mm')
@@ -563,8 +559,8 @@ export default {
         }
       } else if (param === 'modify') {
         if (window.confirm('수정을 승인하시겠습니까?')) {
+          this.item.confirm_date = moment().format()
           if (this.item.status === 9) {
-            console.log('여긴 들어오냐')
             this.item.host_key = this.item.Host.host_key
             let originalAcitivityKey = this.item.category_two
             this.item.status = 3
@@ -588,6 +584,7 @@ export default {
           } else {
             global.setAccessTokenOnLocalStorageAndHttpHeader(this.$http.defaults)
               .then(r => {
+                console.log(this.item.detail_question)
                 return this.$http.put(`/activity/front/${this.item.activity_key}`, this.item)
               })
               .then(result => {
