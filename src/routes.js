@@ -41,6 +41,9 @@ import HostListTm from './components/host/HostListTm.vue'
 import OrderList from './components/order/OrderList.vue'
 import OrderDetail from './components/order/OrderDetail.vue'
 
+import payBackToMakerList from './components/order/payBackToMakerList.vue'
+import payBackToMakerDetail from './components/order/payBackToMakerDetail.vue'
+
 import ActivityList from './components/activity/ActivityList.vue'
 import ActivityDetail from './components/activity/ActivityDetail.vue'
 
@@ -227,12 +230,22 @@ const routes = [
         path: 'order/:key',
         component: OrderDetail,
         name: 'OrderDetail',
-        meta: {description: 'Approve'}
+        meta: {description: '오더디테일'}
       }, {
         path: 'order',
         component: OrderList,
         name: 'OrderList',
-        meta: {description: 'Approve'}
+        meta: {description: '오더리스트'}
+      }, {
+        path: 'pay-back-to-maker',
+        component: payBackToMakerList,
+        name: 'payBackToMakerList',
+        meta: {description: '정산 리스트'}
+      }, {
+        path: 'pay-back-to-maker/:key',
+        component: payBackToMakerDetail,
+        name: 'payBackToMakerDetail',
+        meta: {description: '정산 디테일'}
       }, {
         path: 'ledger/wekin',
         component: WekinLedger,

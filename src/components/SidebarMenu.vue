@@ -128,6 +128,11 @@
       </router-link>
     </li>
     <li class="active pageLink" v-on:click="toggleMenu">
+      <router-link to="/pay-back-to-maker"><i class="fa fa-exchange"></i>
+        <span class="page">정산 관리</span>
+      </router-link>
+    </li>
+    <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/naver"><i class="fa fa-commenting"></i>
         <span style="text-decoration: line-through;" class="page">상품관리(네이버쇼핑용 (개발중))</span>
       </router-link>
