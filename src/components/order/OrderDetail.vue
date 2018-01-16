@@ -223,7 +223,7 @@
                   </div>
                   <div class="form-group col-sm-4">
                     <label for="refundpoint">환불 금액 입력(포인트)</label>
-                    <input type="number" class="form-control" id="refundpoint" placeholder="0" v-model="item.refund_point_price">
+                    <input type="number" class="form-control" id="refundpoint" placeholder="0" v-model="refund_point_price">
                   </div>
                   <button class="btn btn-danger" style="margin-top: 25px;" @click="confirmRefund(item.order_pay_price)" v-if="(item.order_refund_price != null) || (item.order_pay_price == 0)">환불 승인</button>
 
@@ -257,6 +257,7 @@ export default {
       doubleClick: true,
       path: this.$route.params.key,
       item: null,
+      refund_point_price: 0,
       status: orderStatus
     }
   },
@@ -284,16 +285,24 @@ export default {
           })
         }
       } else {
-        if (window.confirm(`${this.item.order_refund_price} 원(+ 포인트 ${this.item.refund_point_price}) 환불하시겠습니까?`)) {
-          this.$http.post(`/point/refund/${this.item.order_key}`, { refundAmount: this.item.refund_point_price })
-            .then(result => {
-              this.$http.post(`/order/refund/${this.item.order_key}`, {order_refund_price: this.item.order_refund_price})
-                .catch(error => window.alert('에러발생', error))
-            })
-            .then(r => {
-              this.$router.go(-1)
-            })
-            .catch(error => window.alert('에러발생', error))
+        if (window.confirm(`${this.item.order_refund_price} 원(+ 포인트 ${this.refund_point_price}) 환불하시겠습니까?`)) {
+          if (this.refund_point_price < 1) {
+            this.$http.post(`/order/refund/${this.item.order_key}`, {order_refund_price: this.item.order_refund_price})
+              .then(r => {
+                this.$router.go(-1)
+              })
+              .catch(error => window.alert('에러발생', error))
+          } else {
+            this.$http.post(`/point/refund/${this.item.order_key}`, { refundAmount: this.refund_point_price })
+              .then(result => {
+                this.$http.post(`/order/refund/${this.item.order_key}`, {order_refund_price: this.item.order_refund_price})
+                  .catch(error => window.alert('에러발생', error))
+              })
+              .then(r => {
+                this.$router.go(-1)
+              })
+              .catch(error => window.alert('에러발생', error))
+          }
         }
       }
     }
