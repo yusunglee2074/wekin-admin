@@ -50,6 +50,9 @@ Vue.filter('prettyDate', prettyDate)
 Vue.filter('pluralize', pluralize)
 Vue.filter('date', date)
 Vue.filter('img', img)
+Vue.filter('won', function (value) {
+  return value.toLocaleString()
+})
 
 Vue.use(VueRouter)
 
