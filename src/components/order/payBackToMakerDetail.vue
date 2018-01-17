@@ -48,18 +48,18 @@
           </thead>
           <tbody>
             <tr class="even" role="row" v-for="(item, key, index) in item.notPaidOrders">
-              <td>{{item.user_name}}</td>
-              <td>{{item.wekin_name}}</td>
-              <td>{{item.wekin_price}}</td>
-              <td>{{item.order_receipt_price}}</td>
-              <td>{{item.order_pay_method}}</td>
-              <td>{{item.cardFee || 300}}</td>
-              <td>{{item.bugase || 30}}</td>
-              <td>{{item.wekinPayback}}</td>
-              <td>{{item.wekinCommisitionPayback}}</td>
-              <td>{{item.wekinBugase}}</td>
-              <td>{{item.totalPayback}}</td>
-              <td>{{item.is_it_paybacked}}</td>
+              <td>{{item.user_name | won}}</td>
+              <td>{{item.wekin_name.length < 15 ? item.wekin_name : item.wekin_name.slice(0, 15) | won}}</td>
+              <td>{{item.wekin_price | won}}</td>
+              <td>{{item.order_receipt_price | won}}</td>
+              <td>{{item.order_pay_method | won}}</td>
+              <td>{{item.cardFee || 300 | won}}</td>
+              <td>{{item.bugase || 30 | won}}</td>
+              <td>{{item.wekinPayback | won}}</td>
+              <td>{{item.wekinCommisitionPayback | won}}</td>
+              <td>{{item.wekinBugase | won}}</td>
+              <td>{{item.totalPayback | won}}</td>
+              <td>{{item.is_it_paybacked | won}}</td>
             </tr>
           </tbody>
         </table>
