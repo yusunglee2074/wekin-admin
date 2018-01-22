@@ -20,9 +20,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>123</td>
-              <td>i123</td>
-              <td>123</td>
+              <td>{{ totalPaybackedAmount + item.totalPayback | won }}</td>
+              <td>{{ totalPaybackedAmount | won }}</td>
+              <td>{{ item.totalPayback | won }}</td>
             </tr>
           </tbody>
         </table>
@@ -88,7 +88,8 @@ export default {
     return {
       item: null,
       orders: [],
-      checkList: []
+      checkList: [],
+      totalPaybackedAmount: 0
     }
   },
   created () {
@@ -99,6 +100,12 @@ export default {
   filters: {
     formatTime: function (value) {
       return moment(value).format('L')
+    }
+  },
+  mounted () {
+    for (let i = 0; i < this.orders.length; i++) {
+      let item = this.orders[i]
+      if (item.is_it_paybacked) this.totalPaybackedAmount += item.order_receipt_price
     }
   },
   methods: {
