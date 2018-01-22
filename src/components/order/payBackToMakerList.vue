@@ -91,8 +91,8 @@ export default {
               // 기업(부가세 신고)
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
+                maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
-                  maker.notPaidOrders.push(order)
                   maker.tradeAmount += order.order_receipt_price
                   if (order.order_pay_method === 'vbank') {
                     order.vbankFee = 300 | 0
@@ -129,14 +129,41 @@ export default {
                     order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase | 0
                   }
                   maker.extraTax += (order.order_receipt_price * order.commission * 0.01) * 0.1 | 0
+                } else {
+                  if (order.order_pay_method === 'vbank') {
+                    order.vbankFee = 300 | 0
+                    order.bugase = order.vbankFee * 0.1 | 0
+                    order.wekinPayback = order.order_receipt_price - order.vbankFee - order.bugase | 0
+                    order.wekinCommisitionPayback = order.commission === 0 ? 0 : order.order_receipt_price * order.commission * 0.01 - order.vbankFee - order.bugase | 0
+                    order.wekinBugase = order.order_receipt_price * order.commission * 0.01 * 0.1 | 0
+                    order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase | 0
+                  } else if (order.order_pay_method === 'card') {
+                    order.paymentFee = 0.032
+                    order.cardFee = order.order_receipt_price * order.paymentFee | 0
+                    order.bugase = order.cardFee * 0.1 | 0
+                    order.wekinPayback = order.order_receipt_price - order.cardFee - order.bugase | 0
+                    order.wekinCommisitionPayback = order.commission === 0 ? 0 : order.order_receipt_price * order.commission * 0.01 - order.cardFee - order.bugase | 0
+                    order.wekinBugase = order.order_receipt_price * order.commission * 0.01 * 0.1 | 0
+                    order.totalPayback = (order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase) | 0
+                  } else if (order.order_pay_method === 'point') {
+                    order.totalPayback = order.order_receipt_price * 0.85 | 0
+                  } else {
+                    order.paymentFee = 0.018 | 0
+                    order.cardFee = order.order_receipt_price * order.paymentFee | 0
+                    order.bugase = order.cardFee * 0.1 | 0
+                    order.wekinPayback = order.order_receipt_price - order.cardFee - order.bugase | 0
+                    order.wekinCommisitionPayback = order.commission === 0 ? 0 : order.order_receipt_price * order.commission * 0.01 - order.cardFee - order.bugase | 0
+                    order.wekinBugase = order.order_receipt_price * order.commission * 0.01 * 0.1 | 0
+                    order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase | 0
+                  }
                 }
               }
             } else {
               // 개인(부가세 신고 X)
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
+                maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
-                  maker.notPaidOrders.push(order)
                   maker.tradeAmount += order.order_receipt_price
                   if (order.order_pay_method === 'vbank') {
                     order.cardFee = 300
@@ -173,6 +200,33 @@ export default {
                     order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
                   }
                   maker.extraTax += (order.order_receipt_price * order.commission * 0.01) * 0.1 | 0
+                } else {
+                  if (order.order_pay_method === 'vbank') {
+                    order.cardFee = 300
+                    order.bugase = order.cardFee * 0.1 | 0
+                    order.wekinPayback = order.order_receipt_price - order.cardFee - order.bugase | 0
+                    order.wekinCommisitionPayback = order.commission === 0 ? 0 : order.order_receipt_price * order.commission * 0.01 - order.cardFee - order.bugase | 0
+                    order.wonchunjingsu = (order.order_receipt_price - order.cardFee - order.bugase - order.wekinCommisitionPayback) * 0.033 | 0
+                    order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
+                  } else if (order.order_pay_method === 'card') {
+                    order.paymentFee = 0.032
+                    order.cardFee = order.order_receipt_price * order.paymentFee | 0
+                    order.bugase = order.cardFee * 0.1 | 0
+                    order.wekinPayback = order.order_receipt_price - order.cardFee - order.bugase | 0
+                    order.wekinCommisitionPayback = order.commission === 0 ? 0 : order.order_receipt_price * order.commission * 0.01 - order.cardFee - order.bugase | 0
+                    order.wonchunjingsu = (order.order_receipt_price - order.cardFee - order.bugase - order.wekinCommisitionPayback) * 0.033 | 0
+                    order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
+                  } else if (order.order_pay_method === 'point') {
+                    order.totalPayback = order.order_receipt_price * 0.85 | 0
+                  } else {
+                    order.paymentFee = 0.018
+                    order.cardFee = order.order_receipt_price * order.paymentFee | 0
+                    order.bugase = order.cardFee * 0.1 | 0
+                    order.wekinPayback = order.order_receipt_price - order.cardFee - order.bugase | 0
+                    order.wekinCommisitionPayback = order.commission === 0 ? 0 : order.order_receipt_price * order.commission * 0.01 - order.cardFee - order.bugase | 0
+                    order.wonchunjingsu = (order.order_receipt_price - order.cardFee - order.bugase - order.wekinCommisitionPayback) * 0.033 | 0
+                    order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
+                  }
                 }
               }
             }
