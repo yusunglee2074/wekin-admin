@@ -129,7 +129,7 @@
     </li>
     <li class="active pageLink" v-on:click="toggleMenu">
       <router-link to="/pay-back-to-maker"><i class="fa fa-exchange"></i>
-        <span class="page">정산 관리(개발중)</span>
+        <span class="page">정산 관리</span>
       </router-link>
     </li>
     <li class="active pageLink" v-on:click="toggleMenu">
