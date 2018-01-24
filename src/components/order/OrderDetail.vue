@@ -113,6 +113,7 @@
               <!-- 환불 목록 -->
               <div class="row" v-if="item.refund_info != null">
                 <div class="col-xs-8 col-xs-offset-2 table-responsive">
+                  <p class="lead">환불 계좌 정보</p>
                   <table class="table table-striped">
                     <thead>
                     <tr>
@@ -124,9 +125,9 @@
                     </thead>
                     <tbody>
                     <tr>
-                      <td>{{item.refund_info.refund_holder}}</td>
-                      <td>{{item.refund_info.refund_bank}}</td>
-                      <td>{{item.refund_info.refund_account}}</td>
+                      <td>{{item.refund_info.name}}</td>
+                      <td>{{item.refund_info.bank}}</td>
+                      <td>{{item.refund_info.account}}</td>
                       <td>{{item.updated_at | date('YYYY-MM-DD HH:mm:ss')}}</td>
                     </tr>
                     </tbody>
