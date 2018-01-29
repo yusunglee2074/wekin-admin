@@ -57,14 +57,15 @@
       </div>
       <!-- /.col -->
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
+        <div class="info-box" style="max-height:90px;">
           <!--<span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>-->
           <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
           <router-link to="/order">
             <div class="info-box-content">
               <span class="info-box-text">최근 일주일 주문건수</span>
-              <span class="info-box-number">{{dashboard.todayNumberOfPaid}}</span>
+              <span class="info-box-number" style="font-size:16px;">{{dashboard.todayNumberOfPaid}}</span>
+              <span class="info-box-number" style="font-size:16px;">{{dashboard.totalPaidAmount | won}}원</span>
             </div>
           </router-link>
           <!-- /.info-box-content -->
@@ -268,13 +269,16 @@ export default {
         .then(r => {
           this.dashboard = r.data.data
           var countPaid = 0
+          var totalPaidAmount = 0
           for (let i = 0; i < this.dashboard.recentWekinNew.length; i++) {
             let wekin = this.dashboard.recentWekinNew[i]
             if (wekin.state === 'paid' && moment(wekin.updated_at) > moment().add(-7, 'days')) {
-              countPaid++
+              countPaid += wekin.pay_amount
+              totalPaidAmount += wekin.final_price
             }
           }
           this.dashboard.todayNumberOfPaid = countPaid
+          this.dashboard.totalPaidAmount = totalPaidAmount
         })
         .catch(error => {
           console.log(error)
