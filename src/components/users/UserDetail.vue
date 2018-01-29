@@ -21,7 +21,7 @@
                 <div class="form-group">
                   <label for="inputName" class="col-sm-2 control-label">이름</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputName" placeholder="이름" :value="item.name">
+                    <input type="text" class="form-control" id="inputName" placeholder="이름" v-model="item.name">
                   </div>
                 </div>
                 <div class="form-group">
@@ -35,7 +35,7 @@
                   <label for="introduce" class="col-sm-2 control-label">소개</label>
 
                   <div class="col-sm-8">
-                    <textarea class="form-control" id="introduce" placeholder="소개" :value="item.introduce" rows="5"></textarea>
+                    <textarea class="form-control" id="introduce" placeholder="소개" v-model="item.introduce" rows="5"></textarea>
                   </div>
                 </div>
                 <hr />
@@ -51,8 +51,9 @@
                 <div class="form-group" :class="phoneClass.style">
                   <label for="inputPhone" class="col-sm-2 control-label">전화번호</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputPhone" placeholder="Name" :value="item.phone">
+                    <input type="text" class="form-control" id="inputPhone" placeholder="pohne" v-model="item.phone">
                     <span class="help-block">{{phoneClass.text}}</span>
+                    <input type="checkbox" v-model="item.phone_valid">전화번호 인증
                   </div>
                 </div>
 
@@ -86,6 +87,7 @@
               </div>
             </div>
             <div class="box-footer">
+              <button @click="save()">저장하기</button>
             </div>
 
           </div>
@@ -103,7 +105,7 @@ export default {
   data () {
     return {
       gender: userGender,
-      doubleClick: true,
+      oubleClick: true,
       phoneClass: {
         status: false,
         style: 'has-error',
@@ -124,7 +126,9 @@ export default {
         gender: null,
         createDate: null,
         lastModDate: null,
-        outDate: null
+        outDate: null,
+        email_valid: null,
+        phone_valid: null
       }
     }
   },
@@ -132,11 +136,29 @@ export default {
     this.fetchData()
   },
   methods: {
+    save () {
+      console.log(this.item)
+      this.$http.put(`/user/front/${this.path}`, {
+        name: this.item.name,
+        introduce: this.item.introduce,
+        profileImage: this.item.profile_image,
+        gender: this.item.gender,
+        email_noti: this.item.email_noti,
+        push_noti: this.item.push_noti,
+        phone: this.item.phone,
+        phone_valid: this.item.phone_valid,
+        sms_noti: this.item.sms_noti,
+        email_valid: this.item.email_valid
+      })
+        .then(result => {
+          window.alert('수정성공!')
+        })
+        .catch(e => console.log(e))
+    },
     fetchData () {
       this.$http.get(`/user/${this.path}`)
       .then(res => {
         this.item = res.data
-
         if (this.item.phone_valid) {
           this.phoneClass.style = ''
           this.phoneClass.status = true
