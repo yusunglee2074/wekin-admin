@@ -321,7 +321,7 @@
                     <input type="" v-model="item.base_price_option[index].price">
                   </div>
                   <div style="float: right; margin-right: 80px;">
-                    <button @click="item.base_price_option.length < 3 ? item.base_price_option.push({}) : null">+</button>
+                    <button @click="item.base_price_option.length < 10 ? item.base_price_option.push({}) : null">+</button>
                     <button @click="item.base_price_option.length > 1 ? item.base_price_option.splice(-1,1) : null">-</button>
                   </div>
                 </div>
@@ -335,7 +335,7 @@
                     <input type="" v-model="item.base_extra_price_option[index].price">
                 </div>
                   <div style="float: right; margin-right: 80px;">
-                    <button @click="item.base_extra_price_option.length < 3 ? item.base_extra_price_option.push({}) : null">+</button>
+                    <button @click="item.base_extra_price_option.length < 10 ? item.base_extra_price_option.push({}) : null">+</button>
                     <button @click="item.base_extra_price_option.length > 1 ? item.base_extra_price_option.splice(-1,1) : null">-</button>
                   </div>
                   </div>
