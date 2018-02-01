@@ -648,6 +648,7 @@ export default {
         let url = task.snapshot.downloadURL
         let img = url.substring(0, url.indexOf('token') - 1)
         this.item.main_image.image.push(img)
+        this.item.main_image['thumb'] = img
       }, prg => {})
     },
     deleteChildWekin (item, index) {
