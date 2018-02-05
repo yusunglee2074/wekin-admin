@@ -23,6 +23,7 @@
                       <tr role="row">
                         <th style="width: 30px;">메이커#</th>
                         <th style="width: 80px;">메이커명</th>
+                        <th style="width: 80px;">개인/사업자</th>
                         <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForDate(items, 'order_at', 'order')">거래금액</th>
                         <th style="width: 200px;">위킨 수수료</th>
                         <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString(items, 'status')">기타세금(위킨 부가세)</th>
@@ -34,6 +35,7 @@
                       <tr class="even" role="row" v-for="(item, key, index) in items">
                         <td>{{item.host_key}}</td>
                         <td>{{item.name}}</td>
+                        <td>{{item.type === 1 ? '기업' : '개인'}}</td>
                         <td>{{item.tradeAmount | won }}</td>
                         <td>{{item.wekinFee | won }}</td>
                         <td>{{item.extraTax | won }}</td>
@@ -91,6 +93,10 @@ export default {
               // 기업(부가세 신고)
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
+                if (order.status !== 'paid' && order.order_pay_price !== order.order_refund_price) {
+                  // cancelled ORDER! (환불)
+                  order.order_receipt_price = order.order_pay_price - order.order_refund_price
+                }
                 maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
                   maker.tradeAmount += order.order_receipt_price
@@ -162,6 +168,10 @@ export default {
               // 개인(부가세 신고 X)
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
+                if (order.status !== 'paid' && order.order_pay_price !== order.order_refund_price) {
+                  // cancelled ORDER! (환불)
+                  order.order_receipt_price = order.order_pay_price - order.order_refund_price
+                }
                 maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
                   maker.tradeAmount += order.order_receipt_price
