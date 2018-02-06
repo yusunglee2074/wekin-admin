@@ -37,7 +37,7 @@
                     <tbody>
                       <tr class="even" role="row" v-for="(item, key, index) in items">
                         <td class="sorting_1">{{item.doc_key}}</td>
-                        <td>{{item.User.name}}</td>
+                        <td>{{item.User ? item.User.name : 'sexy'}}</td>
                         <td>{{(item.ActivityNew) ? item.ActivityNew.Host.name : ''}}</td>
                         <td>{{item.ActivityNew ? item.ActivityNew.title : ''}}</td>
                         <td>
@@ -73,6 +73,7 @@ import 'datatables.net-bs'
 import Category from '../Category'
 import answer from './Answer'
 import { docStatus } from '../../config'
+import moment from 'moment'
 
 export default {
   components: { Category, answer },
@@ -110,6 +111,11 @@ export default {
     fetchData () {
       this.$http.get('/doc/qna/')
       .then(res => {
+        res.data.sort((a, b) => {
+          console.log(moment(a.created_at) - moment(b.created_at))
+          if ((moment(a.created_at) - moment(b.created_at)) > 0) return -1
+          else return 1
+        })
         this.items = res.data
       })
       .catch(err => console.log(err))
