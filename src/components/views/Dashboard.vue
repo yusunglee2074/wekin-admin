@@ -77,7 +77,7 @@
     <!-- /.row -->
 
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-sm-6 col-xs-12">
         <div class="box">
           <div class="box-header width-border">
             <h3 class="box-title"></h3>
@@ -119,7 +119,7 @@
         </div>
       </div>
 
-      <div class="col-xs-6">
+      <div class="col-sm-6 col-xs-12">
         <div class="box">
           <div class="box-header width-border">
             <h3 class="box-title"></h3>
@@ -156,7 +156,7 @@
 
     </div>
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-sm-6 col-xs-12">
         <div class="box">
           <div class="box-header width-border">
             <h3 class="box-title"></h3>
@@ -186,7 +186,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-6">
+      <div class="col-sm-6 col-xs-12">
         <div class="box">
           <div class="box-header width-border">
             <h3 class="box-title"></h3>
