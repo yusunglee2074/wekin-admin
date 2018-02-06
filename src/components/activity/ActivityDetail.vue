@@ -238,6 +238,7 @@
                 </div>
 
   <h3 style="color: red;">필히 아래 시각 입력 하는 란은 HH:mm 형식으로 입력해주세요. 예)(o)13:30, 08:10, 22:00 || (x)3:21 3시13분</h3>
+  <div class="col-sm-12 table-responsive">
 <table>
   <tr>
     <th>분류</th>
@@ -292,6 +293,7 @@
   </tr>
 </template>
 </table>
+</div>
                 <div class="form-group" style="min-height:300px;position:relative;">
                   <label for="price" class="col-sm-2 control-label">영업 휴무일</label>
                   <div style="display:inline-block">
