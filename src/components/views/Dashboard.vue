@@ -106,7 +106,7 @@
                       </tr>
                       <tr v-for="item in dashboard.toBeConfirmedMakers">
                         <td>{{item.host_key}}</td>
-                        <td>{{`${item.name} 님이 메이커 승인 요청을 했습니다.`}}</td>
+                        <td>{{`${item.name ? item.name : '이름없음' } 님이 메이커 승인 요청을 했습니다.`}}</td>
                         <td><span class="badge" v-bind:class="wekinRequest[item.status].style">{{wekinRequest[item.status].status}}</span></td>
                       </tr>
                     </tbody>
@@ -175,7 +175,7 @@
                       </tr>
                       <tr v-for="item in dashboard.recentWekinNew">
                         <td>{{ item.wekin_key }}</td>
-                        <td>{{`${item.User.name } 님이 ${ item.state } 했습니다.`}}</td>
+                        <td>{{`${item.User ? item.User.name : '이름정보없음' } 님이 ${ item.state } 했습니다.`}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -208,7 +208,7 @@
                       <tr v-for="item in dashboard.recentDoc">
                         <td>{{item.doc_key}}</td>
                         <td>{{item.created_at | date('MM-DD HH:mm') }}</td>
-                        <td>{{`회원 ${item.User.name} 님이 ${wekinDocument[item.type].category} 작성`}}</td>
+                        <td>{{`회원 ${item.User ? item.User.name : '이름정보없음'} 님이 ${wekinDocument[item.type].category} 작성`}}</td>
                         <td><span class="badge" v-bind:class="wekinDocument[item.type].style">{{wekinDocument[item.type].category}}</span></td>
                       </tr>
                     </tbody>
