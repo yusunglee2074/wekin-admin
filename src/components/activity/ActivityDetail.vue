@@ -294,7 +294,7 @@
 </table>
                 <div class="form-group" style="min-height:300px;position:relative;">
                   <label for="price" class="col-sm-2 control-label">영업 휴무일</label>
-                  <div style="position:absolute;right:340px;top:50px;">
+                  <div style="display:inline-block">
                     <datepicker 
                       v-model="tempEndDate" 
                       id="datepickerId" 
