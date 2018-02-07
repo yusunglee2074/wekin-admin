@@ -238,7 +238,7 @@
                 </div>
 
   <h3 style="color: red;">필히 아래 시각 입력 하는 란은 HH:mm 형식으로 입력해주세요. 예)(o)13:30, 08:10, 22:00 || (x)3:21 3시13분</h3>
-  <div class="col-sm-12 table-responsive">
+  <div class="table-responsive">
 <table>
   <tr>
     <th>분류</th>
