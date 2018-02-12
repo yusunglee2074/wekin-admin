@@ -49,7 +49,7 @@
               <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString('order_pay_method')">위킨 수수료</th>
               <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString('order_pay_method')">위킨 부가세</th>
               <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString('order_pay_method')">최종 지급액</th>
-              <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString('order_pay_method')">정산여부</th>
+              <th style="width: 80px;cursor: pointer;" class="sorting" @click="sortingMachineForString('order_pay_method')">정산여부 <button @click="allSelect()">모두 선택</button></th>
             </tr>
           </thead>
           <tbody>
@@ -89,6 +89,7 @@ export default {
       item: null,
       orders: [],
       checkList: [],
+      tempAllOrdersKey: [],
       totalPaybackedAmount: 0
     }
   },
@@ -105,10 +106,18 @@ export default {
   mounted () {
     for (let i = 0; i < this.orders.length; i++) {
       let item = this.orders[i]
+      this.tempAllOrdersKey.push(item.order_key)
       if (item.is_it_paybacked) this.totalPaybackedAmount += item.order_receipt_price
     }
   },
   methods: {
+    allSelect () {
+      if (this.checkList.length < this.orders.length) {
+        this.checkList = this.tempAllOrdersKey
+      } else {
+        this.checkList = []
+      }
+    },
     check (payback, orderKey) {
       let list = this.checkList
       if (payback && list.includes(orderKey)) return 'rgb(133,154,133)'
