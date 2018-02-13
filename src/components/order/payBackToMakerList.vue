@@ -93,11 +93,11 @@ export default {
               // 기업(부가세 신고)
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
-                if (order.status !== 'paid' && order.order_pay_price !== order.order_refund_price) {
+                if (order.status !== 'paid') {
                   // cancelled ORDER! (환불)
                   order.order_receipt_price = order.order_pay_price - order.order_refund_price
                 }
-                maker.notPaidOrders.push(order)
+                if (order.order_receipt_price !== 0) maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
                   maker.tradeAmount += order.order_receipt_price
                   if (order.order_pay_method === 'vbank') {
@@ -168,11 +168,12 @@ export default {
               // 개인(부가세 신고 X)
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
-                if (order.status !== 'paid' && order.order_pay_price !== order.order_refund_price) {
+                if (order.user_name === '강미소') console.log(order.status !== 'paid', order.order_pay_price !== order.order_refund_price, '하하')
+                if (order.status !== 'paid') {
                   // cancelled ORDER! (환불)
                   order.order_receipt_price = order.order_pay_price - order.order_refund_price
                 }
-                maker.notPaidOrders.push(order)
+                if (order.order_receipt_price !== 0) maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
                   maker.tradeAmount += order.order_receipt_price
                   if (order.order_pay_method === 'vbank') {
