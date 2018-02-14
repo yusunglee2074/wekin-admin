@@ -11,6 +11,7 @@ import UserList from './components/users/UserList.vue'
 import UserDetail from './components/users/UserDetail.vue'
 import CompanyPoint from './components/users/CompanyPoint.vue'
 import NormalPoint from './components/users/NormalPoint.vue'
+import ActivityPoint from './components/users/ActivityPoint.vue'
 
 import NoticeAdd from './components/board/NoticeAdd.vue'
 import NoticeList from './components/board/NoticeList.vue'
@@ -116,6 +117,11 @@ const routes = [
         component: NormalPoint,
         name: 'NormalPoint',
         meta: {description: '일반 포인트 관리'}
+      }, {
+        path: 'activity-point',
+        component: ActivityPoint,
+        name: 'ActivityPoint',
+        meta: {description: '엑티비티별 포인트 관리'}
       }, {
         path: 'home',
         component: Home,

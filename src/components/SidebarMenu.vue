@@ -62,6 +62,11 @@
             <span class="page">일반 포인트 관리</span>
           </router-link>
         </li>
+        <li>
+          <router-link to="/activity-point"><i class="fa fa-usd"></i>
+            <span class="page">엑티비티별 포인트 적립 관리</span>
+          </router-link>
+        </li>
       </ul>
     </li>
     <li class="treeview">
