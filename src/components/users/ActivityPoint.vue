@@ -59,7 +59,8 @@ export default {
       .catch(err => console.log(err))
     },
     modifyOne (item) {
-      if (item.point_rate.rate !== 0 || item.point_rate.amount !== 0) {
+      console.log(item.point_rate)
+      if ((item.point_rate.rate !== '0' && item.point_rate.amount !== '0')) {
         window.alert('적립율과 적립양 둘 중 하나는 0이여야만 합니다.')
         return
       }
