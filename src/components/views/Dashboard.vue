@@ -273,7 +273,7 @@ export default {
           for (let i = 0; i < this.dashboard.recentWekinNew.length; i++) {
             let wekin = this.dashboard.recentWekinNew[i]
             if (wekin.state === 'paid' && moment(wekin.updated_at) > moment().add(-7, 'days')) {
-              countPaid += wekin.pay_amount
+              countPaid++
               totalPaidAmount += wekin.final_price
             }
           }
