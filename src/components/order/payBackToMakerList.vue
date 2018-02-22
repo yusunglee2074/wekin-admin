@@ -94,8 +94,11 @@ export default {
               for (let ii = 0, llength = maker.Orders.length; ii < llength; ii++) {
                 let order = maker.Orders[ii]
                 if (order.status !== 'paid') {
-                  // cancelled ORDER! (환불)
-                  order.order_receipt_price = order.order_pay_price - order.order_refund_price
+                  if (order.order_refund_price === order.order_pay_price) {
+                    continue
+                  } else {
+                    order.order_receipt_price = order.order_pay_price - order.order_refund_price
+                  }
                 }
                 if (order.order_receipt_price !== 0) maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
@@ -171,7 +174,11 @@ export default {
                 if (order.user_name === '강미소') console.log(order.status !== 'paid', order.order_pay_price !== order.order_refund_price, '하하')
                 if (order.status !== 'paid') {
                   // cancelled ORDER! (환불)
-                  order.order_receipt_price = order.order_pay_price - order.order_refund_price
+                  if (order.order_refund_price === order.order_pay_price) {
+                    continue
+                  } else {
+                    order.order_receipt_price = order.order_pay_price - order.order_refund_price
+                  }
                 }
                 if (order.order_receipt_price !== 0) maker.notPaidOrders.push(order)
                 if (!order.is_it_paybacked) {
