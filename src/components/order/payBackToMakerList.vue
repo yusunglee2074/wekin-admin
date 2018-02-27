@@ -123,9 +123,9 @@ export default {
                     maker.totalPayback += order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase | 0
                     order.totalPayback = (order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase) | 0
                   } else if (order.order_pay_method === 'point') {
-                    maker.wekinFee += order.order_receipt_price * 0.15 | 0
-                    maker.totalPayback += order.order_receipt_price * 0.85 | 0
-                    order.totalPayback = order.order_receipt_price * 0.85 | 0
+                    maker.wekinFee += order.order_receipt_price * (order.commission !== 0 ? order.commission * 0.01 : 0) | 0
+                    maker.totalPayback += order.order_receipt_price * (order.commission !== 0 ? (1 - order.commission) * 0.01 : 1) | 0
+                    order.totalPayback = order.order_receipt_price * (order.commission !== 0 ? (1 - order.commission) * 0.01 : 1) | 0
                   } else {
                     order.paymentFee = 0.018 | 0
                     order.cardFee = order.order_receipt_price * order.paymentFee | 0
@@ -155,7 +155,7 @@ export default {
                     order.wekinBugase = order.order_receipt_price * order.commission * 0.01 * 0.1 | 0
                     order.totalPayback = (order.wekinPayback - order.wekinCommisitionPayback - order.wekinBugase) | 0
                   } else if (order.order_pay_method === 'point') {
-                    order.totalPayback = order.order_receipt_price * 0.85 | 0
+                    order.totalPayback = order.order_receipt_price * (order.commission !== 0 ? (1 - order.commission) * 0.01 : 1) | 0
                   } else {
                     order.paymentFee = 0.018 | 0
                     order.cardFee = order.order_receipt_price * order.paymentFee | 0
@@ -203,9 +203,9 @@ export default {
                     maker.totalPayback += order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
                     order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
                   } else if (order.order_pay_method === 'point') {
-                    maker.wekinFee += order.order_receipt_price * 0.15 | 0
-                    maker.totalPayback += order.order_receipt_price * 0.85 | 0
-                    order.totalPayback = order.order_receipt_price * 0.85 | 0
+                    maker.wekinFee += order.order_receipt_price * (order.commission !== 0 ? order.commission * 0.01 : 0) | 0
+                    maker.totalPayback += order.order_receipt_price * (order.commission !== 0 ? (1 - order.commission) * 0.01 : 1) | 0
+                    order.totalPayback = order.order_receipt_price * (order.commission !== 0 ? (1 - order.commission) * 0.01 : 1) | 0
                   } else {
                     order.paymentFee = 0.018
                     order.cardFee = order.order_receipt_price * order.paymentFee | 0
@@ -235,7 +235,7 @@ export default {
                     order.wonchunjingsu = (order.order_receipt_price - order.cardFee - order.bugase - order.wekinCommisitionPayback) * 0.033 | 0
                     order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
                   } else if (order.order_pay_method === 'point') {
-                    order.totalPayback = order.order_receipt_price * 0.85 | 0
+                    order.totalPayback = order.wekinPayback - order.wekinCommisitionPayback - order.wonchunjingsu | 0
                   } else {
                     order.paymentFee = 0.018
                     order.cardFee = order.order_receipt_price * order.paymentFee | 0
