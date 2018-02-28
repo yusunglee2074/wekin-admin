@@ -2,6 +2,11 @@
   <section class="content">
 
     <div class="row center-block">
+      <Excel 
+        firstRow="유저키, 이름, 이메일, 연락처, 성별, 가입일, 정보수정일 , 탈퇴일" 
+        keys='["user_key", "name", "email", "phone", "gender", "created_at", "updated_at", "deleted_at"]'
+        :htmlTable="items" 
+        fileName="유저관리"></Excel>
       <div class="col-md-12">
         <div class="box">
           <div class="box-header">
@@ -58,8 +63,10 @@ import $ from 'jquery'
 import 'datatables.net'
 import 'datatables.net-bs'
 import { userGender } from '../../config'
+import Excel from './../ToXls'
 
 export default {
+  components: { Excel },
   name: 'UserList',
   data () {
     return {
