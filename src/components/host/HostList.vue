@@ -9,6 +9,11 @@
           <!-- /.box-header -->
           <div class="box-body">
             <div class="dataTables_wrapper form-inline dt-bootstrap" id="data_table_wrapper">
+              <Excel
+                firstRow="키, 구분, 이름, 이메일, 연락처, 주소, 가입일"
+                keys='["host_key", "type", "name", "email", "tel", "address", "created_at"]'
+                :htmlTable="items"
+                fileName="호스트관리"></Excel>
 
               <div class="row">
                 <div class="col-sm-12 table-responsive">
@@ -59,9 +64,10 @@ import 'datatables.net'
 import 'datatables.net-bs'
 import Category from '../Category'
 import { hostStatus, hostType } from '../../config'
+import Excel from './../ToXls.vue'
 
 export default {
-  components: { Category },
+  components: { Category, Excel },
   name: 'HostList',
   data () {
     return {
