@@ -19,6 +19,7 @@
                         <th style="width: 50px;">프로필</th>
                         <th style="width: 20px;" class="sorting">구분</th>
                         <th style="width: 80px;" class="sorting">이름</th>
+                        <th style="width: 80px;" class="sorting">등록일</th>
                         <th style="width: 80px;" class="sorting">이메일</th>
                         <th style="width: 80px;" class="sorting">연락처</th>
                         <th style="width: 80px;" class="sorting">주소</th>
@@ -32,6 +33,7 @@
                         <td><img :src="item.profile_image | img" width="50" height="50"></td>
                         <td><Category v-if="item.type != null" :text="hostType[item.type].text" :color="hostType[item.type].color"></Category></td>
                         <td>{{item.name }}</td>
+                        <td>{{item.created_at | date('L') }}</td>
                         <td>{{item.email}}</td>
                         <td>{{item.tel}}</td>
                         <td>{{item.address}}</td>

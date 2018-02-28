@@ -17,6 +17,7 @@
                         <th style="width: 3%;">키</th>
                         <th style="width: 10%;">메이커</th>
                         <th style="width: 15%;">위킨 제목</th>
+                        <th style="width: 15%;">최초 등록일</th>
                         <th style="width: 10%;">등록 시작일</th>
                         <th style="width: 10%;">등록 종료일</th>
                         <th style="width: 8%;;cursor: pointer;" class="sorting" v-if="!showEnd" @click="sortingMachineForDate(items, 'end_date', 'end_date')">종료일기준</th>
@@ -33,6 +34,7 @@
                         <td>{{ item.activity_key }}</td>
                         <td>{{ item.Host.name }}</td>
                         <td>{{ item.title }}</td>
+                        <td>{{ item.created_at | date('L') }}</td>
                         <td>{{ item.start_date | date('L') }}</td>
                         <td>{{ item.end_date | date('L') }}</td>
                         <td>{{ endList[index] > 0 ? endList[index] + '일 남음' : '종료임박'}}</td>
@@ -47,6 +49,7 @@
                         <td>{{ item.activity_key }}</td>
                         <td>{{ item.Host.name }}</td>
                         <td>{{ item.title }}</td>
+                        <td>{{ item.created_at | date('L') }}</td>
                         <td>{{ item.start_date | date('L') }}</td>
                         <td>{{ item.end_date | date('L') }}</td>
                         <td>{{ doneToDate[index] + '일 초과'}}</td>
