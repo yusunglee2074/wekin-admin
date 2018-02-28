@@ -6,6 +6,11 @@
       <button style="margin-left: 20px;" @click="showEnd = !showEnd">활동/종료 전환 버튼</button>
       <span style="font-size: 19px;margin-left: 20px;">{{ showEnd ? '종료 리스트' : '활동 중 리스트' }}</span>
       <p style="font-size: 12px;margin-left: 20px; color:red;">데이터를 옮기는 과정에서 기술적인 문제로 종료 위킨은 '종료까지 X일' 기능이 작동하지 않습니다. 새로운 엑티비티 등록을 이용해서 등록하면 다시 작동합니다</p>
+      <Excel 
+        firstRow="키, 메이커 키, 제목, 최초 등록일, 신청인원, 조회수" 
+        keys='["activity_key", "Host.host_key", "title", "created_at", "wekinnew_count", "count"]'
+        :htmlTable="items" 
+        fileName="위킨관리"></Excel>
       <div class="col-md-12">
         <div class="box">
           <div class="box-body">
@@ -72,9 +77,10 @@
 
 <script>
 import moment from 'moment'
+import Excel from './../ToXls'
 
 export default {
-  components: { },
+  components: { Excel },
   name: 'WekinList',
   data () {
     return {
