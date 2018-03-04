@@ -68,7 +68,7 @@
                     <tbody>
                       <tr class="even" role="row" v-for="(item, key, index) in items" v-show="isInDate(item.order_at) && (query.status === '' ? true : query.status == item.status) && (query.order_pay_method === '' ? true : query.order_pay_method === item.order_pay_method)">
                         <td>{{item.order_key}}</td>
-                        <td>{{item.User.name}}</td>
+                        <td>{{item.User ? item.User.name : '정보없음' }}</td>
                         <td>{{item.order_at | formatTime }}</td>
                         <td>{{item.wekin_name}} </td>
                         <td>{{item.status }}</td>
